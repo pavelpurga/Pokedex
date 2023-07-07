@@ -1,7 +1,8 @@
 #Implementation of a Pokedex.
 
 It is possible to filter Pokemon by type, and when you click on a Pokemon, you can view more detailed stats.
-![image](https://github.com/pavelpurga/Pokedex/assets/90724702/36159594-227e-457f-b2bf-8374c4daa841)
+![image](https://github.com/pavelpurga/Pokedex/assets/90724702/3b703d38-eb53-4c48-96db-b8dc57874a6e)
+
 
 ## Старт
 
