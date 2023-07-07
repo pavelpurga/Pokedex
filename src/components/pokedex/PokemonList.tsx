@@ -95,7 +95,6 @@ const PokemonList: FC<Props> = ({limit}) => {
         return <div>Ошибка при загрузке покемонов</div>
     }
 
-
     return (
         <>  <div className="add_container">
             <TypeFilters selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes}/>
