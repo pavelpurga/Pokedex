@@ -83,7 +83,6 @@ const PokemonList: FC<Props> = ({limit}) => {
     useEffect(()=>{
         updatePokemonList();
     },[offset])
-
     const handlePokemonClick = async (pokemon:Pokemon) => {
         setSelectedPokemon(pokemon);
     }
