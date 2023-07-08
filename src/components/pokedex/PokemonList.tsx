@@ -99,7 +99,7 @@ const PokemonList: FC<Props> = ({limit}) => {
             <TypeFilters selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes}/>
             <div className="card_list">
                 {pokemonList?.filter((pokemon) =>
-                    selectedTypes.length === 0 ? true : pokemon.types.some((type) => selectedTypes.includes(type))
+                    selectedTypes.length === 0 ? true : pokemon.types.find((type) => selectedTypes.includes(type))
                 ).map((pokemon) => (
                     <Card
                         className="card"
