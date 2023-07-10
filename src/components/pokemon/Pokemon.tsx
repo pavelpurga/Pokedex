@@ -1,12 +1,12 @@
 export interface Pokemon {
     id: number;
     name: string;
-    color: string;
     types: string[];
     image: string;
     stats: number[];
     moves: string[];
 }
+
 export interface PokemonListResponse {
     count: number;
     next: string;

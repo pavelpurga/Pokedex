@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {getColorByType} from "../pokedex/PokemonList";
 import '../../index.css'
-import {Checkbox} from "antd";
 
 const allTypes: string[] = [
     "normal",
@@ -33,7 +32,7 @@ const TypeFilters = ({selectedTypes,setSelectedTypes}:{selectedTypes:string[];se
         }
     };
     return (
-        <Checkbox.Group className="type_filters">
+        <div className="type_filters">
             {allTypes.map((type) => (
                 <span className="checkBoxType" key={type}>
                     <input
@@ -48,7 +47,7 @@ const TypeFilters = ({selectedTypes,setSelectedTypes}:{selectedTypes:string[];se
                     </label>
                 </span>
             ))}
-        </Checkbox.Group>
+        </div>
     );
 };
 

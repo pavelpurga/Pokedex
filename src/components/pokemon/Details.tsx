@@ -24,9 +24,9 @@ const PokemonDetail: React.FC<Props> = ({ pokemon}) => {
                             <Tag key={type} style={{backgroundColor:getColorByType(type)}}>{type}</Tag>
                         ))}
                     </div>
-                </Divider>
+                 </Divider>
                 <div className="pokemon_stats">
-                        <Divider style={{height:10}}><span>Attack:</span> {pokemon.stats[1]}</Divider>
+                    <Divider style={{height:10}}><span>Attack:</span> {pokemon.stats[1]}</Divider>
                     <Divider style={{height:10}}>Defense: {pokemon.stats[2]}</Divider>
                     <Divider style={{height:10}}>HP: {pokemon.stats[0]}</Divider>
                     <Divider style={{height:10}}>Special Attack: {pokemon.stats[3]}</Divider>
