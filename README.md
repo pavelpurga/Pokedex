@@ -1,6 +1,7 @@
 #Implementation of a Pokedex.
 
-It is possible to filter Pokemon by type, and when you click on a Pokemon, you can view more detailed stats.
+Pokémon were taken from a public resource https://pokeapi.co/
+. It is possible to filter Pokemon by type, and when you click on a Pokemon, you can view more detailed stats.
 ![image](https://github.com/pavelpurga/Pokedex/assets/90724702/3b703d38-eb53-4c48-96db-b8dc57874a6e)
 
 
