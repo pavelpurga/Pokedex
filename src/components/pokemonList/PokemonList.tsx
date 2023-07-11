@@ -4,16 +4,15 @@ import {Pokemon, PokemonListResponse} from "../pokemon/Pokemon";
 import PokemonDetail from "../pokemon/Details";
 import {Button, Card, Tag} from "antd";
 import '../../index.css'
-import TypeFilters from "../UI/TypeFilters";
-import {types} from "../../constants/TypesColor";
+import TypeFilters from "../types/TypeFilters";
 import axios from "axios";
+import {getColorByType} from "../../helpers/GetColor";
+import {loadPokemonData} from "../../helpers/LoadPokemons";
+import {fetchPokemonList} from "../../api/Api";
+
 interface Props{
     limit: number
 }
-export const getColorByType = (typeName: string) => {
-const type = types.find((t) => t.name === typeName);
-return type ? type.color : "#000000";
-};
 
 const PokemonList: FC<Props> = ({limit}) => {
     const [offset,setOffset]=useState(0);
@@ -21,36 +20,10 @@ const PokemonList: FC<Props> = ({limit}) => {
     const [pokemonList,setPokemonList] = useState<Pokemon[]>([])
     const {data, isLoading, isError} = useQuery<PokemonListResponse>
     ('pokemonList', async ()=>{
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
-        const data = await response.data;
+        const data = await fetchPokemonList(limit,offset)
         return data;
     })
     const [selectedPokemon, setSelectedPokemon] = useState<Pokemon|null>(null)
-    const loadPokemonData = async (limit:number,offset:number) => {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset-limit}`);
-        const data = await response.data;
-
-        const promise = data?.results.map(async (result:any) => {
-            const response = await axios.get(result.url);
-            const pokemonData = await response.data;
-            const types = pokemonData.types.map(({type}: { type: { name: string } }) => type.name)
-            const stats = pokemonData.stats.map(({ base_stat }: { base_stat: number }) => base_stat);
-            const moves = pokemonData.moves.map(({ move }: { move: { name: string } }) => move.name);
-
-
-            return {
-                id: pokemonData.id,
-                name: pokemonData.name,
-                types,
-                stats,
-                moves,
-                image: pokemonData.sprites.front_default
-            } as Pokemon
-        })
-
-        const pokemons = await Promise.all(promise)
-        return pokemons;
-    }
     const updatePokemonList = async () =>{
         const newPokemonList = await loadPokemonData(limit,offset);
         setPokemonList((prevPokemonList) => [...prevPokemonList,...newPokemonList])

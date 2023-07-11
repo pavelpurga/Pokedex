@@ -1,7 +1,7 @@
 import React from 'react';
-import {getColorByType} from "../pokedex/PokemonList";
 import '../../index.css'
 import {allTypes} from "../../constants/AllTypes";
+import {getColorByType} from "../../helpers/GetColor";
 
 const TypeFilters = ({selectedTypes,setSelectedTypes}:{selectedTypes:string[];setSelectedTypes:Function}) => {
     const handleTypeSelect = (type: string) => {

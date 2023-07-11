@@ -2,8 +2,7 @@ import React from 'react';
 import {Pokemon} from "./Pokemon";
 import {Card, Divider, Tag} from "antd";
 import './../../index.css'
-import {getColorByType} from '../pokedex/PokemonList'
-
+import {getColorByType} from "../../helpers/GetColor";
 interface Props {
     pokemon: Pokemon;
     onClose: () => void;

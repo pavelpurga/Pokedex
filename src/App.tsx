@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import { QueryClient, QueryClientProvider} from "react-query";
-import PokemonList from "./components/pokedex/PokemonList";
+import PokemonList from "./components/pokemonList/PokemonList";
 import './index.css'
 const App: FC = () => {
     const queryClient = new QueryClient();
