@@ -4,7 +4,6 @@ import PokemonList from './components/pokemonList/PokemonList'
 import './index.css'
 const App: FC = () => {
   const queryClient = new QueryClient()
-
   return (
     <>
       <div className="header">
