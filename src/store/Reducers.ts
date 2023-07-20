@@ -1,8 +1,8 @@
-import { ADD_POKEMON, PokemonActionTypes } from "./Actions";
-import { Pokemon } from "../components/pokemon/Pokemon";
+import {ADD_POKEMON, PokemonActionTypes, REMOVE_POKEMON} from "./Actions";
+import { PokemonTypes } from "../components/pokemon/Pokemon.types";
 
 export interface PokemonState {
-  pokemonList: Pokemon[];
+  pokemonList: PokemonTypes[];
 }
 
 const initialState: PokemonState = {
@@ -15,6 +15,11 @@ export const pokemonReducer = (state = initialState, action: PokemonActionTypes)
     return {
       ...state,
       pokemonList: [...state.pokemonList, action.payload]
+    };
+  case REMOVE_POKEMON:
+    return {
+      ...state,
+      pokemonList: state.pokemonList.filter(pokemon => pokemon.id !== action.payload.id),
     };
   default:
     return state;

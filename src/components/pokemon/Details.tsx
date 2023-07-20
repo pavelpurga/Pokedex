@@ -1,15 +1,30 @@
 import React from 'react';
-import { Pokemon } from "./Pokemon";
-import { Card, Divider, Tag } from "antd";
+import { PokemonTypes } from "./Pokemon.types";
+import {Button, Card, Divider, Tag} from "antd";
 import './../../index.css'
 import { getColorByType } from "../../helpers/GetColor";
+import {useDispatch} from "react-redux";
+import {removePokemon} from "../../store/Actions";
 interface Props {
-    pokemon: Pokemon;
+    pokemon: PokemonTypes;
     onClose: () => void;
 }
 
-const PokemonDetail: React.FC<Props> = ({ pokemon}) => {
+const PokemonDetail: React.FC<Props> = ({ pokemon, onClose}) => {
   const movesCount = pokemon.moves?.length;
+  const dispatch = useDispatch();
+
+  const handleRemove = () => {
+    const result = window.confirm(`Are you sure you want to remove ${pokemon.name} from localStorage?`);
+    if (result) {
+      const pokemonList = JSON.parse(localStorage.getItem('pokemonList') || '[]');
+      const updatedPokemonList = pokemonList.filter((p: PokemonTypes) => p.id !== pokemon.id);
+      localStorage.setItem('pokemonList', JSON.stringify(updatedPokemonList));
+      dispatch(removePokemon(pokemon));
+      onClose();
+    }
+  };
+
   return (
     <Card className="cardDetail" style={{width:320,height:550}}>
       <div>
@@ -22,10 +37,13 @@ const PokemonDetail: React.FC<Props> = ({ pokemon}) => {
             {pokemon.types?.map(type => (
               <Tag key={type} style={{backgroundColor:getColorByType(type)}}>{type}</Tag>
             ))}
+            <Button onClick={handleRemove} className="delete_button">
+              Delete Pokemon
+            </Button>
           </div>
         </Divider>
         <div className="pokemon_stats">
-          <Divider style={{height:10}}><span>Attack:</span> {pokemon.stats[1]}</Divider>
+          <Divider style={{height:10}}>Attack: {pokemon.stats[1]}</Divider>
           <Divider style={{height:10}}>Defense: {pokemon.stats[2]}</Divider>
           <Divider style={{height:10}}>HP: {pokemon.stats[0]}</Divider>
           <Divider style={{height:10}}>Special Attack: {pokemon.stats[3]}</Divider>

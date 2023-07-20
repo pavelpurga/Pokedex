@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useQuery } from "react-query";
-import { Pokemon, PokemonListResponse } from "../pokemon/Pokemon";
+import { PokemonTypes, PokemonListResponse } from "../pokemon/Pokemon.types";
 import PokemonDetail from "../pokemon/Details";
 import {Button, Card, Modal, Tag} from "antd";
 import '../../index.css'
 import TypeFilters from "../types/TypeFilters";
 import { getColorByType } from "../../helpers/GetColor";
-import { loadPokemonData } from "../../helpers/LoadPokemons";
+import { loadPokemonData } from "../../api/LoadPokemons";
 import { fetchPokemonList } from "../../api/Api";
 import {useDispatch, useSelector} from "react-redux";
-import {selectPokemonList} from "../../helpers/Selectors";
-import {addPokemon} from "../../helpers/Actions";
+import {selectPokemonList} from "../../store/Selectors";
+import {addPokemon} from "../../store/Actions";
 import AddPokemonForm from "../form/AddPokemonForm";
 interface Props{
     limit: number
@@ -21,19 +21,20 @@ const PokemonList: FC<Props> = ({limit}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const pokemonListAdd = useSelector(selectPokemonList)
-  const [allPokemonList, setAllPokemonList] = useState<Pokemon[]>([]);
+  const [allPokemonList, setAllPokemonList] = useState<PokemonTypes[]>([]);
   const dispatch = useDispatch();
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([])
+  const [pokemonList, setPokemonList] = useState<PokemonTypes[]>([])
   const {data, isLoading, isError} = useQuery<PokemonListResponse>
   ('pokemonList', async ()=>{
     const data = await fetchPokemonList(limit,offset)
     return data;
   })
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon|null>(null)
+  const [selectedPokemon, setSelectedPokemon] = useState<PokemonTypes|null>(null)
   const updatePokemonList = async () =>{
     const newPokemonList = await loadPokemonData(limit,offset);
     setPokemonList((prevPokemonList) => [...prevPokemonList, ...newPokemonList])
   };
+
   const openModal = () => {
     setModalVisible(true);
   };
@@ -43,7 +44,7 @@ const PokemonList: FC<Props> = ({limit}) => {
   const handleLoadMore = () => {
     setOffset(offset + limit);
   }
-  const handleAddPokemon = (pokemon: Pokemon) => {
+  const handleAddPokemon = (pokemon: PokemonTypes) => {
     dispatch(addPokemon(pokemon));
   }
   useEffect(()=>{
@@ -51,11 +52,11 @@ const PokemonList: FC<Props> = ({limit}) => {
   }, [offset])
   useEffect(() => {
     const localStoragePokemonList = 
-        JSON.parse(localStorage.getItem('pokemonList') || '[]') as Pokemon[];
+        JSON.parse(localStorage.getItem('pokemonList') || '[]') as PokemonTypes[];
     setAllPokemonList(
       [...localStoragePokemonList, ...pokemonList]);
   }, [pokemonList, pokemonListAdd]);
-  const handlePokemonClick = async (pokemon:Pokemon) => {
+  const handlePokemonClick = async (pokemon:PokemonTypes) => {
     setSelectedPokemon(pokemon);
   }
 
@@ -69,15 +70,15 @@ const PokemonList: FC<Props> = ({limit}) => {
   return (
     <>
       <Button className="button_add" onClick={openModal}
-      >Добавить покемона
+      >Add pokemon
       </Button>
       <div className="add_container">
         <TypeFilters
           selectedTypes={selectedTypes}
           setSelectedTypes={setSelectedTypes}/>
         <Modal
-          title="Добавить покемона"
-          visible={isModalVisible}
+          title="Adding pokemons"
+          open={isModalVisible}
           onCancel={closeModal}
           footer={null}
         >

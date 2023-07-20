@@ -1,6 +1,6 @@
-import {fetchPokemonListLoad} from "../api/Api";
+import {fetchPokemonListLoad} from "./Api";
 import axios from "axios";
-import {Pokemon} from "../components/pokemon/Pokemon";
+import {PokemonTypes} from "../components/pokemon/Pokemon.types";
 
 export const loadPokemonData = async (limit:number,offset:number) => {
   const data = await fetchPokemonListLoad(limit, offset);
@@ -21,7 +21,7 @@ export const loadPokemonData = async (limit:number,offset:number) => {
       stats,
       moves,
       image: pokemonData.sprites.front_default
-    } as Pokemon
+    } as PokemonTypes
   })
 
   const pokemons = await Promise.all(promise)
