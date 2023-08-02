@@ -2,19 +2,23 @@ import React, { type FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import PokemonList from './components/pokemonList/PokemonList'
 import './index.css'
-import {useDispatch} from "react-redux";
 import {PokemonTypes} from "./components/pokemon/Pokemon.types";
 import {addPokemon} from "./store/Actions";
+import {useTypedDispatch} from "./store/store";
 const App: FC = () => {
   const queryClient = new QueryClient()
-  const dispatch = useDispatch()
+  const dispatch = useTypedDispatch()
 
   const savedPokemonList = localStorage.getItem('pokemonList');
   if (savedPokemonList) {
     const parsedPokemonList = JSON.parse(savedPokemonList);
-    parsedPokemonList.forEach((pokemon: PokemonTypes) => {
-      dispatch(addPokemon(pokemon));
-    });
+    if (Array.isArray(parsedPokemonList)) {
+      parsedPokemonList.forEach((pokemon: PokemonTypes) => {
+        dispatch(addPokemon(pokemon));
+      });
+    } else {
+      console.log('not array');
+    }
   }
   return (
     <>
@@ -22,7 +26,7 @@ const App: FC = () => {
         <h1 className="text">Pokedex</h1>
       </div>
       <QueryClientProvider client={queryClient}>
-        <PokemonList limit={12}/>
+        <PokemonList />
       </QueryClientProvider>
     </>
   )

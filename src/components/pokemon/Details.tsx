@@ -3,8 +3,8 @@ import { PokemonTypes } from "./Pokemon.types";
 import {Button, Card, Divider, Tag} from "antd";
 import './../../index.css'
 import { getColorByType } from "../../helpers/GetColor";
-import {useDispatch} from "react-redux";
 import {removePokemon} from "../../store/Actions";
+import {useTypedDispatch} from "../../store/store";
 interface Props {
     pokemon: PokemonTypes;
     onClose: () => void;
@@ -12,7 +12,7 @@ interface Props {
 
 const PokemonDetail: React.FC<Props> = ({ pokemon, onClose}) => {
   const movesCount = pokemon.moves?.length;
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
 
   const handleRemove = () => {
     const result = window.confirm(`Are you sure you want to remove ${pokemon.name} from localStorage?`);
@@ -20,7 +20,7 @@ const PokemonDetail: React.FC<Props> = ({ pokemon, onClose}) => {
       const pokemonList = JSON.parse(localStorage.getItem('pokemonList') || '[]');
       const updatedPokemonList = pokemonList.filter((p: PokemonTypes) => p.id !== pokemon.id);
       localStorage.setItem('pokemonList', JSON.stringify(updatedPokemonList));
-      dispatch(removePokemon(pokemon));
+      dispatch(removePokemon(pokemon.id));
       onClose();
     }
   };

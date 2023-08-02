@@ -1,14 +1,40 @@
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
+import { PokemonTypes} from "../components/pokemon/Pokemon.types";
 import axios from "axios";
 
-export const fetchPokemonListLoad = async ( limit : number, offset : number ) => {
-  const response = await axios.get
-  (`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset-limit}`);
-  const data = await response.data;
-  return data;
-}
-export const fetchPokemonList = async ( limit : number, offset : number ) => {
-  const response = await axios.get
-  (`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
-  const data = await response.data;
-  return data;
-}
+export const pokemonAPI = createApi({
+  reducerPath: "pokemonAPI",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
+  endpoints: (build) => ({
+    fetchAllPokemon: build.query<PokemonTypes[], { limit?: number; offset?: number }>({
+      query: ({ limit = 12, offset = 0 }) => ({
+        url: "/pokemon",
+        params: { limit, offset },
+      }),
+      transformResponse: async (response: any) => {
+        const {  results } = response;
+        const pokemonWithDetails = await Promise.all(
+          results.map(async (pokemon: any) => {
+            const detailResponse = await axios.get(pokemon.url);
+            const detail = await detailResponse.data;
+            const types = detail.types.map(({type}: {
+                type: { name: string } }) => type.name)
+            const stats = detail.stats.map(({ base_stat }: {
+                base_stat: number }) => base_stat);
+            const moves = detail.moves.map(({ move }: {
+                move: { name: string } }) => move.name);
+            return {
+              id: detail.id,
+              name: detail.name,
+              types,
+              stats,
+              moves,
+              image: detail.sprites.front_default,
+            };
+          })
+        );
+        return pokemonWithDetails;
+      },
+    }),
+  }),
+});

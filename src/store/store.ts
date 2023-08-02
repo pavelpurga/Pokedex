@@ -1,21 +1,34 @@
-import { createStore } from "redux";
+import {AnyAction,} from "redux";
 import { combineReducers } from "redux";
-import { pokemonReducer } from "./Reducers";
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-
-const persistConfig = {
-  key: 'root',
-  storage,
-};
+import {ThunkDispatch} from "redux-thunk";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {PokemonActionTypes} from "./Actions";
+import {ThunkAction, Action, configureStore} from '@reduxjs/toolkit'
+import {pokemonAPI} from "../api/Api";
+import pokemonReducer from '../store/Reducers'
 
 const rootReducer = combineReducers({
-  pokemon: pokemonReducer,
+  reducer: pokemonReducer,
+  [pokemonAPI.reducerPath]: pokemonAPI.reducer
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const setupStore = () => {
+  return  configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(pokemonAPI.middleware)
+  })
+}
 
-export const store = createStore(persistedReducer);
-export const persistor = persistStore(store);
-
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']
 export type RootState = ReturnType<typeof rootReducer>;
+export type TypedDispatch = ThunkDispatch<RootState, PokemonActionTypes, AnyAction>;
+export type TypedThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    RootState,
+    PokemonActionTypes,
+    Action<string>
+>;
+export const useTypedDispatch = () => useDispatch<AppDispatch>();
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;

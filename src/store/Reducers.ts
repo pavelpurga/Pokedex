@@ -1,27 +1,31 @@
-import {ADD_POKEMON, PokemonActionTypes, REMOVE_POKEMON} from "./Actions";
-import { PokemonTypes } from "../components/pokemon/Pokemon.types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {PokemonTypes} from "../components/pokemon/Pokemon.types";
 
-export interface PokemonState {
-  pokemonList: PokemonTypes[];
+
+interface PokemonState {
+    pokemonList: PokemonTypes[];
+    loading: boolean;
+    error: string;
 }
 
 const initialState: PokemonState = {
   pokemonList: [],
+  loading: false,
+  error: '',
 };
 
-export const pokemonReducer = (state = initialState, action: PokemonActionTypes): PokemonState => {
-  switch (action.type) {
-  case ADD_POKEMON:
-    return {
-      ...state,
-      pokemonList: [...state.pokemonList, action.payload]
-    };
-  case REMOVE_POKEMON:
-    return {
-      ...state,
-      pokemonList: state.pokemonList.filter(pokemon => pokemon.id !== action.payload.id),
-    };
-  default:
-    return state;
-  }
-}
+const pokemonSlice = createSlice({
+  name: 'pokemon',
+  initialState: initialState,
+  reducers: {
+    addPokemon(state, action: PayloadAction<PokemonTypes>) {
+      state.pokemonList.push(action.payload);
+    },
+    removePokemon(state, action: PayloadAction<number>) {
+      state.pokemonList = state.pokemonList.filter(pokemon => pokemon.id !== action.payload);
+    },
+  },
+});
+
+export const { addPokemon, removePokemon } = pokemonSlice.actions;
+export default pokemonSlice.reducer;

@@ -1,10 +1,10 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import { useDispatch } from 'react-redux';
 import { addPokemon } from '../../store/Actions';
 import {PokemonTypes} from "../pokemon/Pokemon.types";
 import {FC} from "react";
 import {Button} from "antd";
 import {validationSchema} from "./FormValidation";
+import {useTypedDispatch} from "../../store/store";
 
 interface FormValues {
     name: string;
@@ -17,7 +17,7 @@ interface Props {
   onAddPokemon: (pokemon: PokemonTypes) => void;
 }
 const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
 
   const initialValues: FormValues = {
     name: "",
@@ -29,7 +29,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
 
   const handleSubmit = (values: FormValues) => {
     const newPokemon: PokemonTypes = {
-      id: Math.floor(Math.random() * 1000) + 1,
+      id: Math.floor(Math.random() * 10000) + 1,
       name: values.name,
       image: values.image,
       stats: values.stats.split(",").map((stat) => Number(stat)),
