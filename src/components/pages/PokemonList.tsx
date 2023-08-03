@@ -9,6 +9,7 @@ import AddPokemonForm from "../form/AddPokemonForm";
 import {useTypedDispatch} from "../../store/store";
 import {pokemonAPI} from "../../api/Api";
 import Pokemon from "../pokemon/Pokemon";
+import { useNavigate} from "react-router-dom";
 
 
 const PokemonList = () => {
@@ -23,7 +24,11 @@ const PokemonList = () => {
     const localStoragePokemonList = JSON.parse(localStorage.getItem('pokemonList') || '[]') as PokemonTypes[];
     return localStoragePokemonList;
   });
+  const navigate = useNavigate();
 
+  const handleButtonClick = (route:any) => {
+    navigate(route);
+  };
   useEffect(() => {
     if (Array.isArray(pokemon)) {
       setAllPokemonList((prevList) => [...prevList, ...pokemon]);
@@ -52,6 +57,20 @@ const PokemonList = () => {
 
   return (
     <>
+
+      <div>
+        <div className="header">
+          <h1 className="text">Pokedex</h1>
+        </div>
+        <button className="btn"
+          onClick={() => handleButtonClick('/about')}>
+          Home
+        </button>
+        <button className="btn"
+          onClick={() => handleButtonClick('/posts')}>
+          Posts
+        </button>
+      </div>
       <Button className="button_add" onClick={openModal}
       >Add pokemon
       </Button>
@@ -68,8 +87,8 @@ const PokemonList = () => {
           <AddPokemonForm onAddPokemon={handleAddPokemon}/>
         </Modal>
         <div className="card_list">
-          {isLoading && <h1>Идет загрузка...</h1>}
-          {error && <h1>Произошла ошибка при загрузке</h1>}
+          {isLoading && <h1>Loading...</h1>}
+          {error && <h1>Loading Error</h1>}
           {allPokemonList?.length &&  allPokemonList?.filter((pokemon) =>
             selectedTypes.length === 0 ? true
               : pokemon.types.find((type) => selectedTypes.includes(type))
