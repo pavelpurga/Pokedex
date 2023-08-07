@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import {PokemonTypes} from "../components/pokemon/Pokemon.types";
+import {PokemonTypes} from "../models/Pokemon.types";
 
 export const addPokemon = createAction('ADD_POKEMON', (pokemon: PokemonTypes) => ({
   payload: pokemon

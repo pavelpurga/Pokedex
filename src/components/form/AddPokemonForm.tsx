@@ -1,6 +1,6 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import { addPokemon } from '../../store/Actions';
-import {PokemonTypes} from "../pokemon/Pokemon.types";
+import {PokemonTypes} from "../../models/Pokemon.types";
 import {FC} from "react";
 import {Button} from "antd";
 import {validationSchema} from "./FormValidation";

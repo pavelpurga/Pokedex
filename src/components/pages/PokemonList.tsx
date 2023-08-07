@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import { PokemonTypes } from "../pokemon/Pokemon.types";
+import { PokemonTypes } from "../../models/Pokemon.types";
 import PokemonDetail from "../pokemon/Details";
-import {Button, Modal} from "antd";
+import {Button, Modal, Spin} from "antd";
 import '../../index.css'
 import TypeFilters from "../types/TypeFilters";
 import {addPokemon} from "../../store/Actions";
 import AddPokemonForm from "../form/AddPokemonForm";
 import {useTypedDispatch} from "../../store/store";
-import {pokemonAPI} from "../../api/Api";
+import {pokemonAPI} from "../../api/PokemonApi";
 import Pokemon from "../pokemon/Pokemon";
 import { useNavigate} from "react-router-dom";
 
@@ -57,7 +57,6 @@ const PokemonList = () => {
 
   return (
     <>
-
       <div>
         <div className="header">
           <h1 className="text">Pokedex</h1>
@@ -87,7 +86,7 @@ const PokemonList = () => {
           <AddPokemonForm onAddPokemon={handleAddPokemon}/>
         </Modal>
         <div className="card_list">
-          {isLoading && <h1>Loading...</h1>}
+          {isLoading && <Spin/>}
           {error && <h1>Loading Error</h1>}
           {allPokemonList?.length &&  allPokemonList?.filter((pokemon) =>
             selectedTypes.length === 0 ? true

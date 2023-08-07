@@ -4,19 +4,21 @@ import {ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {PokemonActionTypes} from "./Actions";
 import {ThunkAction, Action, configureStore} from '@reduxjs/toolkit'
-import {pokemonAPI} from "../api/Api";
+import {pokemonAPI} from "../api/PokemonApi";
 import pokemonReducer from '../store/Reducers'
+import {postsAPI} from "../api/PostsApi";
 
 const rootReducer = combineReducers({
   reducer: pokemonReducer,
-  [pokemonAPI.reducerPath]: pokemonAPI.reducer
+  [pokemonAPI.reducerPath]: pokemonAPI.reducer,
+  [postsAPI.reducerPath]: postsAPI.reducer
 });
 
 export const setupStore = () => {
   return  configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(pokemonAPI.middleware)
+      getDefaultMiddleware().concat(pokemonAPI.middleware).concat(postsAPI.middleware),
   })
 }
 

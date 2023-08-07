@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {PokemonTypes} from "../components/pokemon/Pokemon.types";
+import {PokemonTypes} from "../models/Pokemon.types";
 
 
 interface PokemonState {

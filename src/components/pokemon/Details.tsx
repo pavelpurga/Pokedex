@@ -1,5 +1,5 @@
 import React from 'react';
-import { PokemonTypes } from "./Pokemon.types";
+import { PokemonTypes } from "../../models/Pokemon.types";
 import {Button, Card, Divider, Tag} from "antd";
 import './../../index.css'
 import { getColorByType } from "../../helpers/GetColor";
