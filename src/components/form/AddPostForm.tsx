@@ -1,0 +1,68 @@
+import React, {FC} from 'react';
+import {PostsTypes} from "../../models/Posts.types";
+import {useTypedDispatch} from "../../store/store";
+import {addPost} from "../../store/PostActions";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {Button} from "antd";
+
+interface FormValues {
+    title: string;
+    body: string;
+}
+interface Props {
+    onAddPost: (post: PostsTypes) => void;
+}
+const AddPostForm: FC<Props> = ({onAddPost}) => {
+  const dispatch = useTypedDispatch();
+
+  const initialValues: FormValues = {
+    title: "",
+    body: ""
+  };
+
+  const handleSubmit = (values: FormValues) => {
+    const newPost: PostsTypes = {
+      id: Math.floor(Math.random() * 10000) + 1,
+      title: values.title,
+      body: values.body,
+    };
+    dispatch(addPost(newPost));
+    const postList = JSON.parse(localStorage.getItem('postList') || '[]') as PostsTypes[];
+    localStorage.setItem('postList', JSON.stringify([...postList, newPost]));
+    onAddPost(newPost);
+  };
+
+  return (
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} >
+      {({ values, handleChange, touched, errors }) => (
+        <Form>
+
+          <Field id="title" name="title" value={values.title}
+            placeholder="Title"
+            onChange={handleChange}
+            className="form-control"
+          />
+          <ErrorMessage
+            name="title" component="div" className="invalid-feedback" />
+          
+          <Field id="body" name="body" value={values.body}
+            placeholder="Body"
+            onChange={handleChange}
+          />
+          <ErrorMessage
+            name="body" component="div" className="invalid-feedback" />
+          
+
+          <Button
+            style={{marginLeft:'160px',marginTop:'10px'}}
+            type="primary"
+            htmlType="submit">
+                      Add post
+          </Button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default AddPostForm;

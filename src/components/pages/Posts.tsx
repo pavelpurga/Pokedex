@@ -1,31 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {postsAPI} from "../../api/PostsApi";
 import Post from "../post/Post";
-import {Button, Spin} from "antd";
+import {Button, Modal, Spin} from "antd";
 import {PostsTypes} from "../../models/Posts.types";
+import {addPost} from "../../store/PostActions";
+import AddPostForm from "../form/AddPostForm";
+import {useTypedDispatch} from "../../store/store";
 
 const Posts = () => {
   const navigate = useNavigate();
-  const{data: posts,error,isLoading} = postsAPI.useFetchAllPostsQuery(120)
-  const [createPost,{error:createError,isLoading: createIsLoading}] = postsAPI.useCreatePostMutation()
-  const [updatePost,{error:updateError,isLoading: updateIsLoading}] = postsAPI.useUpdatePostMutation()
-  const [deletePost,{error:deleteError,isLoading: deleteIsLoading}] = postsAPI.useDeletePostMutation()
-    
+  const dispatch = useTypedDispatch()
+  const [isModalVisible, setModalVisible] = useState(false);
+  const{data: posts,error,isLoading} = postsAPI.useFetchAllPostsQuery(100)
+  const [allPosts,setAllPosts] = useState<PostsTypes[]>(()=>{
+    const localStoragePosts = JSON.parse(localStorage.getItem('postList') || '[]') as PostsTypes[];
+    return localStoragePosts;
+  });
+  useEffect(() => {
+    if (Array.isArray(posts)) {
+      setAllPosts((prevList) => [...posts, ...prevList]);
+    }
+  }, [posts]);
+
   const handleButtonClick = (route:any) => {
     navigate(route);
   };
-  const handleCreate = async () => {
-    const title = prompt();
-    await createPost({title,body:title} as PostsTypes)
+  const openModal = () => {
+    setModalVisible(true);
+  };
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleAddPost = (post: PostsTypes) => {
+    dispatch(addPost(post));
   }
-  const handleRemove= (post : PostsTypes)=>{
-    deletePost(post)
-  }
-  const handleUpdate= (post : PostsTypes)=>{
-    updatePost(post)
-  }
-  
+
   return (
     <div>
       <div>
@@ -42,17 +53,19 @@ const Posts = () => {
         </button>
       </div>
       <div className="post__list">
-        <Button onClick={handleCreate}>Add new post</Button>
-        {deleteIsLoading && <h1>Loading of delete...</h1>}
-        {deleteError && <h1>Delete Error</h1>}
-        {updateIsLoading && <h1>Loading of update...</h1>}
-        {updateError && <h1>Create Error</h1>}
-        {createIsLoading && <h1>Loading of create...</h1>}
-        {createError && <h1>Create Error</h1>}
-        {isLoading && <Spin/>}
+        <Button onClick={openModal}>Add new post</Button>
+        <Modal
+          title="Adding posts"
+          open={isModalVisible}
+          onCancel={closeModal}
+          footer={null}
+        >
+          <AddPostForm onAddPost={handleAddPost}/>
+        </Modal>
+        {isLoading && <Spin style={{display: "flex",justifyContent:"center"}}/>}
         {error && <h1>Loading Error</h1>}
-        {posts && posts.map(post=>
-          <Post remove={handleRemove} update={handleUpdate} key={post.id} post ={post}/>
+        {allPosts && allPosts.map(post=>
+          <Post key={post.id} post ={post}/>
         )}
       </div>
     </div>

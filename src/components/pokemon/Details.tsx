@@ -3,7 +3,7 @@ import { PokemonTypes } from "../../models/Pokemon.types";
 import {Button, Card, Divider, Tag} from "antd";
 import './../../index.css'
 import { getColorByType } from "../../helpers/GetColor";
-import {removePokemon} from "../../store/Actions";
+import {removePokemon} from "../../store/PokemonActions";
 import {useTypedDispatch} from "../../store/store";
 interface Props {
     pokemon: PokemonTypes;

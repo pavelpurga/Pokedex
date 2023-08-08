@@ -4,7 +4,7 @@ import PokemonDetail from "../pokemon/Details";
 import {Button, Modal, Spin} from "antd";
 import '../../index.css'
 import TypeFilters from "../types/TypeFilters";
-import {addPokemon} from "../../store/Actions";
+import {addPokemon} from "../../store/PokemonActions";
 import AddPokemonForm from "../form/AddPokemonForm";
 import {useTypedDispatch} from "../../store/store";
 import {pokemonAPI} from "../../api/PokemonApi";

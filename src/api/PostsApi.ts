@@ -21,7 +21,7 @@ export const postsAPI = createApi({
         method: 'POST',
         body: post
       }),
-      invalidatesTags:['Post']
+      invalidatesTags:['Post'],
     }),
     updatePost: build.mutation<PostsTypes,PostsTypes>({
       query: (post) =>({
@@ -29,14 +29,14 @@ export const postsAPI = createApi({
         method: 'PUT',
         body: post
       }),
-      invalidatesTags:['Post']
+      invalidatesTags:['Post'],
     }),
     deletePost: build.mutation<PostsTypes,PostsTypes>({
-      query: (post) =>({
-        url:`/posts/${post.id}`,
+      query: (postId) =>({
+        url:`/posts/${postId}`,
         method: 'DELETE',
       }),
-      invalidatesTags:['Post']
+      invalidatesTags:['Post'],
     })
   })
 })
