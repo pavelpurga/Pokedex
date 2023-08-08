@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react';
 import { PostsTypes } from '../../models/Posts.types';
-import { Button, Input } from 'antd';
+import {Button, Card, Input, Tag} from 'antd';
 import { useTypedDispatch } from '../../store/store';
 import { updatePost } from '../../store/PostActions';
+import {removePokemon} from "../../store/PokemonActions";
 
 interface PostDetailsProps {
   post: PostsTypes;
@@ -26,8 +27,6 @@ const PostDetails: FC<PostDetailsProps> = ({ post, onClose }) => {
       body: body,
     };
     dispatch(updatePost(updatedPost));
-
-    // Save to localStorage if needed
     const postsList = JSON.parse(localStorage.getItem('postList') || '[]');
     const updatedPostsList = postsList.map((p: PostsTypes) =>
       p.id === post.id ? updatedPost : p
@@ -43,34 +42,49 @@ const PostDetails: FC<PostDetailsProps> = ({ post, onClose }) => {
     setEditing(false);
   };
 
+  const handleRemove = () => {
+    const result = window.confirm(`Are you sure you want to remove ${post.id} from localStorage?`);
+    if (result) {
+      const postsList = JSON.parse(localStorage.getItem('postList') || '[]');
+      const updatedPostsList = postsList.filter((p: PostsTypes) => p.id !== post.id);
+      localStorage.setItem('postList', JSON.stringify(updatedPostsList));
+      dispatch(removePokemon(post.id));
+    }
+  }
+    
   return (
     <div>
-      <div>ID: {post.id}</div>
-      <div>
+      <Tag style={{marginBottom:5}}>{post.id}</Tag>
+      <Card style={{marginBottom:5}} hoverable={true}>
           Title:{' '}
         {isEditing ? (
           <Input value={title} onChange={(e) => setTitle(e.target.value)} />
         ) : (
           title
         )}
-      </div>
-      <div>
+      </Card>
+      <Card hoverable={true}>
           Body:{' '}
         {isEditing ? (
           <Input.TextArea value={body} onChange={(e) => setBody(e.target.value)} />
         ) : (
           body
         )}
-      </div>
+      </Card>
       {isEditing ? (
-        <div>
+        <div style={{margin:10}}>
           <Button onClick={handleSaveClick}>Save</Button>
-          <Button onClick={handleCancelClick}>Cancel</Button>
+          <Button style={{marginLeft:15}} onClick={handleCancelClick}>Cancel</Button>
         </div>
       ) : (
-        <Button onClick={handleEditClick}>Change</Button>
+        <div style={{marginTop:10}}>
+          <Button onClick={handleEditClick}>Change</Button>
+        </div>
       )}
-      <Button onClick={onClose}>Close</Button>
+      <div style={{display:"flex", justifyContent: "end"}}>
+        <Button onClick={handleRemove}>Delete</Button>
+        <Button style={{marginLeft:15}} onClick={onClose}>Close</Button>
+      </div>
     </div>
   );
 };

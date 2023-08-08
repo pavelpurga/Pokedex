@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { PokemonTypes } from "../../models/Pokemon.types";
-import PokemonDetail from "../pokemon/Details";
+import PokemonDetail from "../pokemon/PokemonDetails";
 import {Button, Modal, Spin} from "antd";
 import '../../index.css'
 import TypeFilters from "../types/TypeFilters";

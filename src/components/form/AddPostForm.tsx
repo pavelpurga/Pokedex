@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {PostsTypes} from "../../models/Posts.types";
-import {useTypedDispatch} from "../../store/store";
+import {useTypedDispatch, useTypedSelector} from "../../store/store";
 import {addPost} from "../../store/PostActions";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Button} from "antd";
@@ -13,8 +13,8 @@ interface Props {
     onAddPost: (post: PostsTypes) => void;
 }
 const AddPostForm: FC<Props> = ({onAddPost}) => {
+  const allPosts: PostsTypes[] = useTypedSelector((state) => state.postReducer.posts);
   const dispatch = useTypedDispatch();
-
   const initialValues: FormValues = {
     title: "",
     body: ""
@@ -22,7 +22,7 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
 
   const handleSubmit = (values: FormValues) => {
     const newPost: PostsTypes = {
-      id: Math.floor(Math.random() * 10000) + 1,
+      id: allPosts.length + 101,
       title: values.title,
       body: values.body,
     };

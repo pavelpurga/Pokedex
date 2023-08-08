@@ -2,13 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {postsAPI} from "../../api/PostsApi";
 import Post from "../post/Post";
-import {Button, Modal, Spin} from "antd";
+import {Button, Divider, Modal, Pagination, Spin} from "antd";
 import {PostsTypes} from "../../models/Posts.types";
 import {addPost} from "../../store/PostActions";
 import AddPostForm from "../form/AddPostForm";
 import {useTypedDispatch} from "../../store/store";
 
+
 const Posts = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const startIndex = (currentPage - 1 ) * pageSize;
+  const endIndex = startIndex + pageSize;
   const navigate = useNavigate();
   const dispatch = useTypedDispatch()
   const [isModalVisible, setModalVisible] = useState(false);
@@ -23,6 +28,9 @@ const Posts = () => {
     }
   }, [posts]);
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
   const handleButtonClick = (route:any) => {
     navigate(route);
   };
@@ -35,6 +43,7 @@ const Posts = () => {
 
   const handleAddPost = (post: PostsTypes) => {
     dispatch(addPost(post));
+    setAllPosts([...allPosts, post]);
   }
 
   return (
@@ -43,17 +52,19 @@ const Posts = () => {
         <div className="header">
           <h1 className="text">Pokemon's posts</h1>
         </div>
-        <button className="btn"
-          onClick={() => handleButtonClick('/about')}>
-              Home
-        </button>
-        <button className="btn"
-          onClick={() => handleButtonClick('/pokemonList')}>
-              Pokedex
-        </button>
+        <div style={{display: "flex", justifyContent: "center", marginBottom:20}}>
+          <button className="btn"
+            onClick={() => handleButtonClick('/about')}>
+            Home
+          </button>
+          <button className="btn"
+            onClick={() => handleButtonClick('/pokemonList')}>
+            Pokedex
+          </button>
+        </div>
       </div>
-      <div className="post__list">
-        <Button onClick={openModal}>Add new post</Button>
+      <div className="post__list" >
+        <Button className="button_add" onClick={openModal}>Add new post</Button>
         <Modal
           title="Adding posts"
           open={isModalVisible}
@@ -64,10 +75,22 @@ const Posts = () => {
         </Modal>
         {isLoading && <Spin style={{display: "flex",justifyContent:"center"}}/>}
         {error && <h1>Loading Error</h1>}
-        {allPosts && allPosts.map(post=>
+        {allPosts && allPosts.slice(startIndex,endIndex).map(post=>
           <Post key={post.id} post ={post}/>
         )}
       </div>
+      {allPosts && (
+        <div>
+          <Divider />
+          <Pagination
+            current={currentPage}
+            defaultPageSize={pageSize}
+            total={allPosts.length}
+            onChange={handlePageChange}
+            style={{ marginBottom: '20px', display:"flex", justifyContent:"center" }}
+          />
+        </div>
+      )}
     </div>
   );
 };
