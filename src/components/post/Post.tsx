@@ -1,12 +1,13 @@
 import React, {FC, useState} from 'react';
-import {PostsTypes} from "../../models/Posts.types";
 import {Button, Card, Modal} from "antd";
 import PostDetails from "./PostDetails";
+import {PostsTypes} from "../../entity'sData/models/Posts.types";
 interface PostProps{
     post: PostsTypes,
+    image: string | undefined;
 }
 
-const Post :FC<PostProps> = ({post}) => {
+const Post : FC<PostProps> = ({post,image}) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -26,7 +27,10 @@ const Post :FC<PostProps> = ({post}) => {
         hoverable={true}
         extra={<Button onClick={openModal}>More</Button>}
       >
-        {post.body}
+        <div style={{display:"flex"}}>
+          {image && <img src={image} alt={`Пост ${post.id}`} />}
+          <div style={{ marginLeft: 10, flexGrow: 1 }}>{post.body}</div>
+        </div>
         <Modal
           title="Post Details"
           open={isModalVisible}

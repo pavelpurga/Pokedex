@@ -1,5 +1,5 @@
 import {createAction} from "@reduxjs/toolkit";
-import {PostsTypes} from "../models/Posts.types";
+import {PostsTypes} from "../entity'sData/models/Posts.types";
 
 export const addPost = createAction('ADD_POST', (post: PostsTypes) => ({
   payload: post

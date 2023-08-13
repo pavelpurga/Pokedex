@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
-import { PokemonTypes} from "../models/Pokemon.types";
 import axios from "axios";
+import {PokemonTypes} from "../entity'sData/models/Pokemon.types";
 
 export const pokemonAPI = createApi({
   reducerPath: "pokemonAPI",

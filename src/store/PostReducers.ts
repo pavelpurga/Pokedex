@@ -1,6 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {PostsTypes} from "../models/Posts.types";
-import {addPost, deletePost, updatePost} from "./PostActions";
+import {PostsTypes} from "../entity'sData/models/Posts.types";
 
 interface PostState{
   posts: PostsTypes[],
@@ -17,22 +16,23 @@ const initialState : PostState = {
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(addPost, (state, action) => {
-        state.posts.push(action.payload);
-      })
-      .addCase(updatePost, (state, action) => {
-        const { id, title } = action.payload;
-        const postIndex = state.posts.findIndex((post) => post.id === id);
-        if (postIndex !== -1) {
-          state.posts[postIndex].title = title;
-        }
-      })
-      .addCase(deletePost, (state, action) => {
-        state.posts = state.posts.filter((post) => post.id !== action.payload);
-      });
+  reducers: {
+    addPost(state, action){
+      const newPost = action.payload;
+      const nextId = state.posts.length > 0 ? state.posts[state.posts.length - 1].id + 1 : 1;
+      newPost.id = nextId;
+      state.posts.push(newPost);
+    },
+    updatePost(state,action){
+      const { id, title } = action.payload;
+      const postIndex = state.posts.findIndex((post) => post.id === id);
+      if (postIndex !== -1) {
+        state.posts[postIndex].title = title;
+      }
+    },
+    deletePost(state, action){
+      state.posts = state.posts.filter((post) => post.id !== action.payload);
+    }
   },
 });
 

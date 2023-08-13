@@ -1,15 +1,13 @@
 import React from 'react';
 import '../../index.css'
-import {allTypes} from "../../constants/AllTypes";
 import {getColorByType} from "../../helpers/GetColor";
+import {allTypes} from "../../entity\'sData/constants/PokemonTypesColor";
 
 interface TypeFiltersProps {
   selectedTypes: string[];
   setSelectedTypes: (value: React.SetStateAction<string[]>) => void;
 }
-
-// eslint-disable-next-line @typescript-eslint/ban-types
-const TypeFilters = ({selectedTypes,setSelectedTypes}:TypeFiltersProps ) => {
+const PokemonFilters = ({selectedTypes,setSelectedTypes}:TypeFiltersProps ) => {
   const handleTypeSelect = (type: string) => {
     if (selectedTypes.includes(type)) {
       setSelectedTypes(selectedTypes.filter((t) => t !== type));
@@ -40,4 +38,4 @@ const TypeFilters = ({selectedTypes,setSelectedTypes}:TypeFiltersProps ) => {
   );
 };
 
-export default TypeFilters;
+export default PokemonFilters;

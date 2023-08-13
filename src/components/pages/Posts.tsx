@@ -3,10 +3,11 @@ import {useNavigate} from "react-router-dom";
 import {postsAPI} from "../../api/PostsApi";
 import Post from "../post/Post";
 import {Button, Divider, Modal, Pagination, Spin} from "antd";
-import {PostsTypes} from "../../models/Posts.types";
 import {addPost} from "../../store/PostActions";
 import AddPostForm from "../form/AddPostForm";
 import {useTypedDispatch} from "../../store/store";
+import {PostsTypes} from "../../entity'sData/models/Posts.types";
+import {fetchPostImages} from "../../api/PostImageApi";
 
 
 const Posts = () => {
@@ -17,6 +18,7 @@ const Posts = () => {
   const navigate = useNavigate();
   const dispatch = useTypedDispatch()
   const [isModalVisible, setModalVisible] = useState(false);
+  const [postImages, setPostImages] = useState<string[]>([]);
   const{data: posts,error,isLoading} = postsAPI.useFetchAllPostsQuery(100)
   const [allPosts,setAllPosts] = useState<PostsTypes[]>(()=>{
     const localStoragePosts = JSON.parse(localStorage.getItem('postList') || '[]') as PostsTypes[];
@@ -27,6 +29,15 @@ const Posts = () => {
       setAllPosts((prevList) => [...posts, ...prevList]);
     }
   }, [posts]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const images = await fetchPostImages(allPosts);
+      setPostImages(images);
+    };
+
+    fetchImages();
+  }, [allPosts]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -75,9 +86,11 @@ const Posts = () => {
         </Modal>
         {isLoading && <Spin style={{display: "flex",justifyContent:"center"}}/>}
         {error && <h1>Loading Error</h1>}
-        {allPosts && allPosts.slice(startIndex,endIndex).map(post=>
-          <Post key={post.id} post ={post}/>
-        )}
+        {allPosts && allPosts.slice(startIndex,endIndex).map((post,index)=>(
+          <div key={post.id}>
+            <Post post={post} image = {postImages.find((img, index) => index === post.id)} />
+          </div>
+        ))}
       </div>
       {allPosts && (
         <div>

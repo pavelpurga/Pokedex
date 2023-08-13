@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {PostsTypes} from "../../models/Posts.types";
 import {useTypedDispatch, useTypedSelector} from "../../store/store";
 import {addPost} from "../../store/PostActions";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Button} from "antd";
+import {PostsTypes} from "../../entity'sData/models/Posts.types";
 
 interface FormValues {
     title: string;
@@ -22,7 +22,7 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
 
   const handleSubmit = (values: FormValues) => {
     const newPost: PostsTypes = {
-      id: allPosts.length + 101,
+      id: allPosts.length + 1,
       title: values.title,
       body: values.body,
     };

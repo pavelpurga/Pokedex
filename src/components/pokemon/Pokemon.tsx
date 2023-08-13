@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
-import {PokemonTypes} from "../../models/Pokemon.types";
 import {Card, Tag} from "antd";
 import {getColorByType} from "../../helpers/GetColor";
 import '../../index.css'
+import {PokemonTypes} from "../../entity'sData/models/Pokemon.types";
 
 interface PokemonProps {
     pokemon: PokemonTypes;

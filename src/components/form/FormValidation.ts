@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import {allTypes} from "../../constants/AllTypes";
+import {allTypes} from "../../entity'sData/constants/PokemonTypesColor";
 
 export const validationSchema = Yup.object().shape({
   name: Yup.string().matches(/^[a-zA-Z ]+$/, 'Name should contain only letters and spaces').required('Name is required'),

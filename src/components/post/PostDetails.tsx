@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { PostsTypes } from '../../models/Posts.types';
+import { PostsTypes } from '../../entity\'sData/models/Posts.types';
 import {Button, Card, Input, Tag} from 'antd';
 import { useTypedDispatch } from '../../store/store';
 import { updatePost } from '../../store/PostActions';

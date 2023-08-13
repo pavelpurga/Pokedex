@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import { PokemonTypes } from "../../models/Pokemon.types";
 import PokemonDetail from "../pokemon/PokemonDetails";
 import {Button, Modal, Spin} from "antd";
 import '../../index.css'
-import TypeFilters from "../types/TypeFilters";
+import PokemonFilters from "../filters/PokemonFilters";
 import {addPokemon} from "../../store/PokemonActions";
 import AddPokemonForm from "../form/AddPokemonForm";
 import {useTypedDispatch} from "../../store/store";
 import {pokemonAPI} from "../../api/PokemonApi";
 import Pokemon from "../pokemon/Pokemon";
 import { useNavigate} from "react-router-dom";
+import {PokemonTypes} from "../../entity'sData/models/Pokemon.types";
 
 
 const PokemonList = () => {
@@ -74,7 +74,7 @@ const PokemonList = () => {
       >Add pokemon
       </Button>
       <div className="add_container">
-        <TypeFilters
+        <PokemonFilters
           selectedTypes={selectedTypes}
           setSelectedTypes={setSelectedTypes}/>
         <Modal

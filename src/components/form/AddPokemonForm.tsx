@@ -1,10 +1,10 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import { addPokemon } from '../../store/PokemonActions';
-import {PokemonTypes} from "../../models/Pokemon.types";
 import {FC} from "react";
 import {Button} from "antd";
 import {validationSchema} from "./FormValidation";
 import {useTypedDispatch} from "../../store/store";
+import {PokemonTypes} from "../../entity'sData/models/Pokemon.types";
 
 interface FormValues {
     name: string;

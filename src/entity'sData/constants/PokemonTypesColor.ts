@@ -22,3 +22,24 @@ export const types: PokemonType[] = [
   { name: "steel", color: "#b8b8d0" },
   { name: "fairy", color: "#ee99ac" },
 ];
+
+export const allTypes: string[] = [
+  "normal",
+  "fire",
+  "water",
+  "grass",
+  "electric",
+  "ice",
+  "fighting",
+  "poison",
+  "ground",
+  "flying",
+  "psychic",
+  "bug",
+  "rock",
+  "ghost",
+  "dragon",
+  "dark",
+  "steel",
+  "fairy",
+];
