@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import {useTypedDispatch, useTypedSelector} from "../../store/store";
-import {addPost} from "../../store/PostActions";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Button} from "antd";
 import {PostsTypes} from "../../entitysData/models/Posts.types";
+import {addPost} from "../../store/PostSlice";
 
 interface FormValues {
     title: string;

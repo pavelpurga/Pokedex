@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react';
 import { PostsTypes } from '../../entitysData/models/Posts.types';
 import {Button, Card, Input, Tag} from 'antd';
 import { useTypedDispatch } from '../../store/store';
-import { updatePost } from '../../store/PostActions';
-import {removePokemon} from "../../store/PokemonActions";
+import {updatePost} from "../../store/PostSlice";
+import {removePokemon} from "../../store/PokemonSlice";
 
 interface PostDetailsProps {
   post: PostsTypes;

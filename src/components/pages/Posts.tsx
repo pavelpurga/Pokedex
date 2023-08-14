@@ -3,11 +3,11 @@ import {useNavigate} from "react-router-dom";
 import {postsAPI} from "../../api/PostsApi";
 import Post from "../post/Post";
 import {Button, Divider, Modal, Pagination, Spin} from "antd";
-import {addPost} from "../../store/PostActions";
 import AddPostForm from "../form/AddPostForm";
 import {useTypedDispatch} from "../../store/store";
 import {PostsTypes} from "../../entitysData/models/Posts.types";
 import {fetchPostImages} from "../../api/PostImageApi";
+import {addPost} from "../../store/PostSlice";
 
 
 const Posts = () => {

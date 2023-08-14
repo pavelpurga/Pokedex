@@ -3,13 +3,13 @@ import PokemonDetail from "../pokemon/PokemonDetails";
 import {Button, Modal, Spin} from "antd";
 import '../../index.css'
 import PokemonFilters from "../filters/PokemonFilters";
-import {addPokemon} from "../../store/PokemonActions";
 import AddPokemonForm from "../form/AddPokemonForm";
 import {useTypedDispatch} from "../../store/store";
 import {pokemonAPI} from "../../api/PokemonApi";
 import Pokemon from "../pokemon/Pokemon";
 import { useNavigate} from "react-router-dom";
 import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
+import {addPokemon} from "../../store/PokemonSlice";
 
 
 const PokemonList = () => {
