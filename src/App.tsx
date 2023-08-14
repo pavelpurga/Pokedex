@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import PokemonList from './components/pages/PokemonList'
 import './index.css'
 import {useTypedDispatch} from "./store/store";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import About from "./components/pages/About";
 import Posts from "./components/pages/Posts";
 import {PostsTypes} from "./entitysData/models/Posts.types";
@@ -42,14 +42,12 @@ const App: FC = () => {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/about' element={<About/>}/>
-            <Route path='/pokemonList' element={<PokemonList/>}/>
-            <Route path='/posts' element={<Posts/>}/>
-            <Route path="/" element={<About/>}/>
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path='/about' element={<About/>}/>
+          <Route path='/pokemonList' element={<PokemonList/>}/>
+          <Route path='/posts' element={<Posts/>}/>
+          <Route path="/" element={<About/>}/>
+        </Routes>
       </QueryClientProvider>
     </>
   )
