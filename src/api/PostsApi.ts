@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
-import {PostsTypes} from "../entity'sData/models/Posts.types";
+import {PostsTypes} from "../entitysData/models/Posts.types";
 
 export const postsAPI = createApi({
   reducerPath: 'postsAPI',

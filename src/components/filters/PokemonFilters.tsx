@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../index.css'
 import {getColorByType} from "../../helpers/GetColor";
-import {allTypes} from "../../entity\'sData/constants/PokemonTypesColor";
+import {allTypes} from "../../entitysData/constants/PokemonTypesColor";
 
 interface TypeFiltersProps {
   selectedTypes: string[];

@@ -9,7 +9,7 @@ import {useTypedDispatch} from "../../store/store";
 import {pokemonAPI} from "../../api/PokemonApi";
 import Pokemon from "../pokemon/Pokemon";
 import { useNavigate} from "react-router-dom";
-import {PokemonTypes} from "../../entity'sData/models/Pokemon.types";
+import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
 
 
 const PokemonList = () => {

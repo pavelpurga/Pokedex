@@ -8,8 +8,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import About from "./components/pages/About";
 import Posts from "./components/pages/Posts";
 import {addPost} from "./store/PostActions";
-import {PostsTypes} from "./entity'sData/models/Posts.types";
-import {PokemonTypes} from "./entity'sData/models/Pokemon.types";
+import {PostsTypes} from "./entitysData/models/Posts.types";
+import {PokemonTypes} from "./entitysData/models/Pokemon.types";
 
 const App: FC = () => {
   const queryClient = new QueryClient()

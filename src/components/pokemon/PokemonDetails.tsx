@@ -4,7 +4,7 @@ import './../../index.css'
 import { getColorByType } from "../../helpers/GetColor";
 import {removePokemon} from "../../store/PokemonActions";
 import {useTypedDispatch} from "../../store/store";
-import {PokemonTypes} from "../../entity'sData/models/Pokemon.types";
+import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
 interface Props {
     pokemon: PokemonTypes;
     onClose: () => void;

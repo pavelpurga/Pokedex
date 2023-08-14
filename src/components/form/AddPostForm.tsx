@@ -3,7 +3,7 @@ import {useTypedDispatch, useTypedSelector} from "../../store/store";
 import {addPost} from "../../store/PostActions";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Button} from "antd";
-import {PostsTypes} from "../../entity'sData/models/Posts.types";
+import {PostsTypes} from "../../entitysData/models/Posts.types";
 
 interface FormValues {
     title: string;

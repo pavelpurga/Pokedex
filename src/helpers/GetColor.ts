@@ -1,4 +1,4 @@
-import {types} from "../entity'sData/constants/PokemonTypesColor";
+import {types} from "../entitysData/constants/PokemonTypesColor";
 
 export const getColorByType = (typeName: string) => {
   const type = types.find((t) => t.name === typeName);

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {PostsTypes} from "../entity'sData/models/Posts.types";
+import {PostsTypes} from "../entitysData/models/Posts.types";
 
 export const fetchPostImages = async (allPosts : PostsTypes[]) => {
   const imagePromises = allPosts.map(async (post) => {
@@ -10,7 +10,7 @@ export const fetchPostImages = async (allPosts : PostsTypes[]) => {
         },
         params: {
           query: 'nature',
-          per_page: 1,
+          per_page: 100,
         },
       });
 

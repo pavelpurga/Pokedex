@@ -6,7 +6,7 @@ import {Button, Divider, Modal, Pagination, Spin} from "antd";
 import {addPost} from "../../store/PostActions";
 import AddPostForm from "../form/AddPostForm";
 import {useTypedDispatch} from "../../store/store";
-import {PostsTypes} from "../../entity'sData/models/Posts.types";
+import {PostsTypes} from "../../entitysData/models/Posts.types";
 import {fetchPostImages} from "../../api/PostImageApi";
 
 

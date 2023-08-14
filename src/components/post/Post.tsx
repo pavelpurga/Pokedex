@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {Button, Card, Modal} from "antd";
 import PostDetails from "./PostDetails";
-import {PostsTypes} from "../../entity'sData/models/Posts.types";
+import {PostsTypes} from "../../entitysData/models/Posts.types";
 interface PostProps{
     post: PostsTypes,
     image: string | undefined;
