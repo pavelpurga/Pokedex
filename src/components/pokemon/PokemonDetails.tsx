@@ -13,7 +13,6 @@ interface Props {
 const PokemonDetail: React.FC<Props> = ({ pokemon, onClose}) => {
   const movesCount = pokemon.moves?.length;
   const dispatch = useTypedDispatch();
-
   const handleRemove = () => {
     const result = window.confirm(`Are you sure you want to remove ${pokemon.name} from localStorage?`);
     if (result) {
@@ -24,7 +23,6 @@ const PokemonDetail: React.FC<Props> = ({ pokemon, onClose}) => {
       onClose();
     }
   };
-
   return (
     <Card className="cardDetail" style={{width:320,height:550}}>
       <div>

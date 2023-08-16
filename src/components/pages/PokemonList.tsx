@@ -20,7 +20,7 @@ const PokemonList = () => {
   const { data: pokemon, error, isLoading } =
       pokemonAPI.useFetchAllPokemonQuery({limit:12,offset: offset})
   const[selectedPokemon, setSelectedPokemon] = useState<PokemonTypes | null>(null)
-  const [allPokemonList, setAllPokemonList] = useState<PokemonTypes[]>(() => {
+  const [allPokemonList, setAllPokemonList] = useState<PokemonTypes[]>(()=>{
     const localStoragePokemonList = JSON.parse(localStorage.getItem('pokemonList') || '[]') as PokemonTypes[];
     return localStoragePokemonList;
   });
@@ -45,6 +45,8 @@ const PokemonList = () => {
 
   const handleAddPokemon = (pokemon: PokemonTypes) => {
     dispatch(addPokemon(pokemon));
+    setAllPokemonList((prevList) => [pokemon, ...prevList]);
+    closeModal()
   }
 
   const handleLoadMore = () => {

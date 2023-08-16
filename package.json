@@ -1,7 +1,7 @@
 {
   "name": "my-first-task",
   "version": "0.1.0",
-  "homepage": "https://pavelpurga.github.io/Pokedex",
+  "homepage": "https://pavelpurga.github.io/Pokedex/",
   "private": true,
   "dependencies": {
     "@redux-devtools/extension": "^3.2.5",

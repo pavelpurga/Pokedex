@@ -1,21 +1,28 @@
-import React, { FC, useState } from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import { PostsTypes } from '../../entitysData/models/Posts.types';
 import {Button, Card, Input, Tag} from 'antd';
 import { useTypedDispatch } from '../../store/store';
 import {updatePost} from "../../store/PostSlice";
 import {removePokemon} from "../../store/PokemonSlice";
+import {postsAPI} from "../../api/PostsApi";
 
 interface PostDetailsProps {
   post: PostsTypes;
   onClose: () => void;
 }
 
-const PostDetails: FC<PostDetailsProps> = ({ post, onClose }) => {
+const PostDetails: FC<PostDetailsProps> = ({ post, onClose}) => {
   const dispatch = useTypedDispatch();
   const [title, setTitle] = useState(post.title);
   const [body, setBody] = useState(post.body);
   const [isEditing, setEditing] = useState(false);
+  const [updatePosts,{error:updateError,isLoading: updateIsLoading}] = postsAPI.useUpdatePostMutation()
+  const [deletePosts,{error:deleteError,isLoading: deleteIsLoading}] = postsAPI.useDeletePostMutation()
 
+  useEffect(() => {
+    setTitle(post.title);
+    setBody(post.body);
+  }, [post]);
   const handleEditClick = () => {
     setEditing(true);
   };
@@ -27,12 +34,14 @@ const PostDetails: FC<PostDetailsProps> = ({ post, onClose }) => {
       body: body,
     };
     dispatch(updatePost(updatedPost));
+    updatePosts(updatedPost)
     const postsList = JSON.parse(localStorage.getItem('postList') || '[]');
     const updatedPostsList = postsList.map((p: PostsTypes) =>
       p.id === post.id ? updatedPost : p
     );
     localStorage.setItem('postList', JSON.stringify(updatedPostsList));
-
+    setTitle(postsList.title)
+    setBody(postsList.body)
     setEditing(false);
   };
 
@@ -49,6 +58,7 @@ const PostDetails: FC<PostDetailsProps> = ({ post, onClose }) => {
       const updatedPostsList = postsList.filter((p: PostsTypes) => p.id !== post.id);
       localStorage.setItem('postList', JSON.stringify(updatedPostsList));
       dispatch(removePokemon(post.id));
+      deletePosts(post)
     }
   }
     
@@ -71,6 +81,10 @@ const PostDetails: FC<PostDetailsProps> = ({ post, onClose }) => {
           body
         )}
       </Card>
+      {deleteIsLoading && <h1>Loading of delete...</h1>}
+      {deleteError && <h1>Delete Error</h1>}
+      {updateIsLoading && <h1>Loading of update...</h1>}
+      {updateError && <h1>Create Error</h1>}
       {isEditing ? (
         <div style={{margin:10}}>
           <Button onClick={handleSaveClick}>Save</Button>

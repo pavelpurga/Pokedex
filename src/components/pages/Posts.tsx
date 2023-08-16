@@ -35,7 +35,6 @@ const Posts = () => {
       const images = await fetchPostImages(allPosts);
       setPostImages(images);
     };
-
     fetchImages();
   }, [allPosts]);
 
@@ -52,7 +51,7 @@ const Posts = () => {
     setModalVisible(false);
   };
 
-  const handleAddPost = (post: PostsTypes) => {
+  const handleAddPost = async (post: PostsTypes) => {
     dispatch(addPost(post));
     setAllPosts([...allPosts, post]);
   }
@@ -75,7 +74,7 @@ const Posts = () => {
         </div>
       </div>
       <div className="post__list" >
-        <Button className="button_add" onClick={openModal}>Add new post</Button>
+        <Button className="button_add" onClick={openModal}>Add new post in local</Button>
         <Modal
           title="Adding posts"
           open={isModalVisible}

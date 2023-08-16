@@ -19,6 +19,12 @@ const PokemonFilters = ({selectedTypes,setSelectedTypes}:TypeFiltersProps ) => {
     <div className="type_filters">
       {allTypes.map((type) => (
         <span className="checkBoxType" key={type}>
+          <label className="labelType"
+            htmlFor={type}
+            style={{ backgroundColor: getColorByType(type),marginRight:3 }}
+          >
+            {type}
+          </label>
           <input
             className="checkbox_input"
             type="checkbox"
@@ -26,12 +32,6 @@ const PokemonFilters = ({selectedTypes,setSelectedTypes}:TypeFiltersProps ) => {
             checked={selectedTypes.includes(type)}
             onChange={() => handleTypeSelect(type)}
           />
-          <label className="labelType" 
-            htmlFor={type}
-            style={{ backgroundColor: getColorByType(type) }}
-          >
-            {type}
-          </label>
         </span>
       ))}
     </div>

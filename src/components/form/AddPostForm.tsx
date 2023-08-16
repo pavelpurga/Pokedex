@@ -4,6 +4,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Button} from "antd";
 import {PostsTypes} from "../../entitysData/models/Posts.types";
 import {addPost} from "../../store/PostSlice";
+import {postsAPI} from "../../api/PostsApi";
 
 interface FormValues {
     title: string;
@@ -13,6 +14,7 @@ interface Props {
     onAddPost: (post: PostsTypes) => void;
 }
 const AddPostForm: FC<Props> = ({onAddPost}) => {
+  const [createPost,{error:createError,isLoading: createIsLoading}] = postsAPI.useCreatePostMutation()
   const allPosts: PostsTypes[] = useTypedSelector((state) => state.postReducer.posts);
   const dispatch = useTypedDispatch();
   const initialValues: FormValues = {
@@ -22,10 +24,11 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
 
   const handleSubmit = (values: FormValues) => {
     const newPost: PostsTypes = {
-      id: allPosts.length + 1,
+      id: allPosts.length,
       title: values.title,
       body: values.body,
     };
+    createPost(newPost)
     dispatch(addPost(newPost));
     const postList = JSON.parse(localStorage.getItem('postList') || '[]') as PostsTypes[];
     localStorage.setItem('postList', JSON.stringify([...postList, newPost]));
@@ -51,14 +54,17 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
           />
           <ErrorMessage
             name="body" component="div" className="invalid-feedback" />
-          
+
 
           <Button
             style={{marginLeft:'160px',marginTop:'10px'}}
             type="primary"
-            htmlType="submit">
+            htmlType="submit"
+          >
                       Add post
           </Button>
+          {createIsLoading && <h1>Loading of create...</h1>}
+          {createError && <h1>Create Error</h1>}
         </Form>
       )}
     </Formik>

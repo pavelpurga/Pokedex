@@ -38,7 +38,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
     };
     dispatch(addPokemon(newPokemon));
     const pokemonList = JSON.parse(localStorage.getItem('pokemonList') || '[]') as PokemonTypes[];
-    localStorage.setItem('pokemonList', JSON.stringify([...pokemonList, newPokemon]));
+    localStorage.setItem('pokemonList', JSON.stringify([newPokemon,...pokemonList]));
     onAddPokemon(newPokemon);
   };
 
