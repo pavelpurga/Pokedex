@@ -10,6 +10,7 @@ import Pokemon from "../pokemon/Pokemon";
 import { useNavigate} from "react-router-dom";
 import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
 import {addPokemon} from "../../store/PokemonSlice";
+import {ROUTES} from "../../entitysData/constants/API_ROUTS";
 
 
 const PokemonList = () => {
@@ -64,11 +65,11 @@ const PokemonList = () => {
           <h1 className="text">Pokedex</h1>
         </div>
         <button className="btn"
-          onClick={() => handleButtonClick('/about')}>
+          onClick={() => handleButtonClick(ROUTES.ABOUT)}>
           Home
         </button>
         <button className="btn"
-          onClick={() => handleButtonClick('/posts')}>
+          onClick={() => handleButtonClick(ROUTES.POSTS)}>
           Posts
         </button>
       </div>

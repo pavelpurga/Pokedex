@@ -6,7 +6,7 @@ export const fetchPostImages = async (allPosts : PostsTypes[]) => {
     try {
       const response = await axios.get('https://api.pexels.com/v1/search', {
         headers: {
-          Authorization: 'PSt9K39lJ0GvSolnmXxGpStqzbFS593dz7jvn7pEcOpK2IfFd1Q8i4SG',
+          Authorization: process.env.REACT_APP_API_KEY,
         },
         params: {
           query: 'nature',

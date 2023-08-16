@@ -8,6 +8,7 @@ import {useTypedDispatch} from "../../store/store";
 import {PostsTypes} from "../../entitysData/models/Posts.types";
 import {fetchPostImages} from "../../api/PostImageApi";
 import {addPost} from "../../store/PostSlice";
+import {ROUTES} from "../../entitysData/constants/API_ROUTS";
 
 
 const Posts = () => {
@@ -64,11 +65,11 @@ const Posts = () => {
         </div>
         <div style={{display: "flex", justifyContent: "center", marginBottom:20}}>
           <button className="btn"
-            onClick={() => handleButtonClick('/about')}>
+            onClick={() => handleButtonClick(ROUTES.ABOUT)}>
             Home
           </button>
           <button className="btn"
-            onClick={() => handleButtonClick('/pokemonList')}>
+            onClick={() => handleButtonClick(ROUTES.POKEMON_LIST)}>
             Pokedex
           </button>
         </div>

@@ -10,6 +10,7 @@ import {PostsTypes} from "./entitysData/models/Posts.types";
 import {PokemonTypes} from "./entitysData/models/Pokemon.types";
 import {addPokemon} from "./store/PokemonSlice";
 import {addPost} from "./store/PostSlice";
+import {ROUTES} from "./entitysData/constants/API_ROUTS";
 
 const App: FC = () => {
   const queryClient = new QueryClient()
@@ -43,10 +44,10 @@ const App: FC = () => {
     <>
       <QueryClientProvider client={queryClient}>
         <Routes>
-          <Route path='/about' element={<About/>}/>
-          <Route path='/pokemonList' element={<PokemonList/>}/>
-          <Route path='/posts' element={<Posts/>}/>
-          <Route path="/" element={<About/>}/>
+          <Route path={ROUTES.ABOUT} element={<About/>}/>
+          <Route path={ROUTES.POKEMON_LIST} element={<PokemonList/>}/>
+          <Route path={ROUTES.POSTS} element={<Posts/>}/>
+          <Route path={ROUTES.ABOUT} element={<About/>}/>
         </Routes>
       </QueryClientProvider>
     </>
