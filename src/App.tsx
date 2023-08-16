@@ -47,7 +47,7 @@ const App: FC = () => {
           <Route path={ROUTES.ABOUT} element={<About/>}/>
           <Route path={ROUTES.POKEMON_LIST} element={<PokemonList/>}/>
           <Route path={ROUTES.POSTS} element={<Posts/>}/>
-          <Route path={ROUTES.ABOUT} element={<About/>}/>
+          <Route path='/' element={<About/>}/>
         </Routes>
       </QueryClientProvider>
     </>
