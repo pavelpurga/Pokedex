@@ -1,6 +1,6 @@
-import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {Formik, Form, ErrorMessage} from 'formik';
 import {FC} from "react";
-import {Button} from "antd";
+import {Button, Col, Input, Row} from "antd";
 import {validationSchema} from "./FormValidation";
 import {useTypedDispatch} from "../../store/store";
 import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
@@ -46,48 +46,57 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
       {({ values, handleChange, touched, errors }) => (
         <Form>
-          <div className={`form-group ${touched.name && errors.name ? 'is-invalid' : touched.name && !errors.name ? 'is-valid' : ''}`}>
+          <Row gutter={[16,16]}>
+            <Col span={24} sm={12}>
+              <div className={`form-group ${touched.name && errors.name ? 'is-invalid' : touched.name && !errors.name ? 'is-valid' : ''}`}>
 
-            <Field id="name" name="name" value={values.name}
-              placeholder="Name"
-              onChange={handleChange}
-              className="form-control"
-            />
-            <ErrorMessage
-              name="name" component="div" className="invalid-feedback" />
-          </div>
-          <div className={`form-group ${touched.types && errors.types ? 'is-invalid' : touched.types && !errors.types ? 'is-valid' : ''}`}>
-            <Field id="types" name="types" value={values.types}
-              placeholder="Type/s"
-              onChange={handleChange}
-            />
-            <ErrorMessage
-              name="types" component="div" className="invalid-feedback" />
-          </div>
-          <div className={`form-group ${touched.image && errors.image ? 'is-invalid' : touched.image && !errors.image ? 'is-valid' : ''}`} >
-            <Field id="image" name="image" value={values.image}
-              placeholder="Image(URL)"
-              onChange={handleChange} />
-            <ErrorMessage
-              name="image" component="div" className="invalid-feedback" />
-          </div>
-          
-          <div className={`form-group ${touched.stats && errors.stats ? 'is-invalid' : touched.stats && !errors.stats ? 'is-valid' : ''}`}>
-            <Field id="stats" name="stats" value={values.stats}
-              placeholder="Stats(through comma)"
-              onChange={handleChange} />
-            <ErrorMessage
-              name="stats" component="div" className="invalid-feedback" />  
-          </div>
-          
-          <div className={`form-group ${touched.moves && errors.moves ? 'is-invalid' : touched.moves && !errors.moves ? 'is-valid' : ''}`}>
-            <Field id="moves" name="moves" value={values.moves}
-              placeholder="Moves(through comma)"
-              onChange={handleChange} />
-            <ErrorMessage
-              name="moves" component="div" className="invalid-feedback" />
-          </div>
-
+                <Input id="name" name="name" value={values.name}
+                  placeholder="Name"
+                  onChange={handleChange}
+                  className="form-control"
+                />
+                <ErrorMessage
+                  name="name" component="div" className="invalid-feedback" />
+              </div>
+            </Col>
+            <Col span={24} sm={12}>
+              <div className={`form-group ${touched.types && errors.types ? 'is-invalid' : touched.types && !errors.types ? 'is-valid' : ''}`}>
+                <Input id="types" name="types" value={values.types}
+                  placeholder="Type/s"
+                  onChange={handleChange}
+                />
+                <ErrorMessage
+                  name="types" component="div" className="invalid-feedback" />
+              </div>
+            </Col>
+            <Col span={24} sm={12}>
+              <div className={`form-group ${touched.image && errors.image ? 'is-invalid' : touched.image && !errors.image ? 'is-valid' : ''}`} >
+                <Input id="image" name="image" value={values.image}
+                  placeholder="Image(URL)"
+                  onChange={handleChange} />
+                <ErrorMessage
+                  name="image" component="div" className="invalid-feedback" />
+              </div>
+            </Col>
+            <Col span={24} sm={12}>
+              <div className={`form-group ${touched.stats && errors.stats ? 'is-invalid' : touched.stats && !errors.stats ? 'is-valid' : ''}`}>
+                <Input id="stats" name="stats" value={values.stats}
+                  placeholder="Stats(through comma)"
+                  onChange={handleChange} />
+                <ErrorMessage
+                  name="stats" component="div" className="invalid-feedback" />
+              </div>
+            </Col>
+            <Col span={24}>
+              <div className={`form-group ${touched.moves && errors.moves ? 'is-invalid' : touched.moves && !errors.moves ? 'is-valid' : ''}`}>
+                <Input id="moves" name="moves" value={values.moves}
+                  placeholder="Moves(through comma)"
+                  onChange={handleChange} />
+                <ErrorMessage
+                  name="moves" component="div" className="invalid-feedback" />
+              </div>
+            </Col>
+          </Row>
           <Button
             style={{marginLeft:'160px',marginTop:'10px'}}
             type="primary"
