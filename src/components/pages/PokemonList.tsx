@@ -96,20 +96,19 @@ const PokemonList = () => {
               : pokemon.types.find((type) => selectedTypes.includes(type))
           ).map((pokemon) => (
             <Pokemon key={pokemon.id} pokemon={pokemon} onClick={handlePokemonClick}/>
-          ))}
+          ))
+          }
         </div>
-      </div>
-      <div>
-        {pokemon && (
-          <Button className="load_more_button" style={{width: 350}} type="primary"
-            onClick={handleLoadMore}><strong>Load more</strong></Button>
-        )}
         <div className="fixed_element">
           {selectedPokemon &&
-                  <PokemonDetail pokemon={selectedPokemon}
-                    onClose={() => setSelectedPokemon(null)}/>}
+              <PokemonDetail pokemon={selectedPokemon}
+                onClose={() => setSelectedPokemon(null)}/>}
         </div>
       </div>
+      {pokemon && (
+        <Button className="load_more_button" style={{width: 350}} type="primary"
+          onClick={handleLoadMore}><strong>Load more</strong></Button>
+      )}
     </>
   );
 };

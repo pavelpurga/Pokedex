@@ -24,14 +24,18 @@
   margin-bottom: 24px;
 
 }
-
+.add_container{
+  display: flex;
+  flex-wrap: wrap;
+}
 .fixed_element{
-  position: fixed;
-  top:135px;
-  right: 0;
+  position: sticky;
+  top: 80px;
   width: 30%;
-  height: 100vh;
-  overflow-y: scroll;
+  height: calc(100vh - 135px);
+  overflow-y: auto;
+  margin-left: auto;
+  margin-right: 16px;
 }
 .load_more_button{
   position: page;
@@ -60,17 +64,17 @@ padding-top:1px;
 }
 .type_filters{
   display: flex;
-  justify-content: start;
+  justify-content: center;
   padding:20px;
 }
 .labelType{
   border: 1px solid black;
   border-radius: 4px;
 }
-.checkBoxType{
-  padding: 2px;
+.type_button{
+  margin-right: 3px;
+  margin-bottom: 3px;
 }
-
 .button_add{
   margin: 0 auto;
   display: flex;
