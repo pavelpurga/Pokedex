@@ -12,9 +12,9 @@ i18n
     supportedLngs: ['en', 'ru', 'ua'],
     backend: {
       loadPath: [
-        '/locales/en/translation.json',
-        '/locales/ru/translation.json',
-        '/locales/ua/translation.json'
+        '.en/translation.json',
+        '.ru/translation.json',
+        '.ua/translation.json',
       ]
     },
     react: {

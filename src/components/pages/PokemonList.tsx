@@ -19,16 +19,21 @@ const PokemonList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const dispatch = useTypedDispatch();
+  const [selectedLanguage,setSelectedLanguage] = useState("EN");
   const { data: pokemon, error, isLoading } =
       pokemonAPI.useFetchAllPokemonQuery({limit:12,offset: offset})
   const[selectedPokemon, setSelectedPokemon] = useState<PokemonTypes | null>(null)
-  const { t } = useTranslation();
+  const { i18n,t } = useTranslation();
   const [allPokemonList, setAllPokemonList] = useState<PokemonTypes[]>(()=>{
     const localStoragePokemonList = JSON.parse(localStorage.getItem('pokemonList') || '[]') as PokemonTypes[];
     return localStoragePokemonList;
   });
   const navigate = useNavigate();
 
+  const handleLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+    i18n.changeLanguage(language);
+  };
   const handleButtonClick = (route:any) => {
     navigate(route);
   };
@@ -66,7 +71,7 @@ const PokemonList = () => {
         <div className="header">
           <h1 className="text">{t('Pokedex')}</h1>
         </div>
-        <Radio.Group >
+        <Radio.Group value={selectedLanguage} onChange={(e)=>handleLanguageChange(e.target.value)}>
           <Radio.Button value="RU">{t('RU')}</Radio.Button>
           <Radio.Button value="EN">{t('EN')}</Radio.Button>
           <Radio.Button value="UA">{t('UA')}</Radio.Button>
