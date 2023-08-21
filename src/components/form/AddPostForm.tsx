@@ -6,6 +6,7 @@ import {PostsTypes} from "../../entitysData/models/Posts.types";
 import {addPost} from "../../store/PostSlice";
 import {postsAPI} from "../../api/PostsApi";
 import {useTranslation} from "react-i18next";
+import TextArea from "antd/es/input/TextArea";
 
 interface FormValues {
     title: string;
@@ -50,7 +51,7 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
           <ErrorMessage
             name="title" component="div" className="invalid-feedback" />
           
-          <Input id="body" name="body" value={values.body}
+          <TextArea id="body" name="body" value={values.body}
             placeholder={t("Body")}
             onChange={handleChange}
           />

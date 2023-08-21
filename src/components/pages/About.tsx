@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import '../../index.css'
+import '../../styles/index.css'
 import {Radio} from "antd";
 import i18n from "../../entitysData/i18n/i18n";
 import {useTranslation} from "react-i18next";
@@ -37,6 +37,10 @@ const About = () => {
         <button className="btn"
           onClick={() => handleButtonClick(ROUTES.POSTS)}>
           {t('Posts')}
+        </button>
+        <button className="btn"
+          onClick={() => handleButtonClick(ROUTES.ADD_MOVIE)}>
+          {t('Movie')}
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { type FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import PokemonList from './components/pages/PokemonList'
-import './index.css'
+import './styles/index.css'
 import {useTypedDispatch} from "./store/store";
 import {Route, Routes} from "react-router-dom";
 import About from "./components/pages/About";
@@ -11,6 +11,7 @@ import {PokemonTypes} from "./entitysData/models/Pokemon.types";
 import {addPokemon} from "./store/PokemonSlice";
 import {addPost} from "./store/PostSlice";
 import {ROUTES} from "./entitysData/constants/API_ROUTS";
+import AddMovie from "./components/pages/AddMovie";
 
 const App: FC = () => {
   const queryClient = new QueryClient()
@@ -47,6 +48,7 @@ const App: FC = () => {
           <Route path={ROUTES.ABOUT} element={<About/>}/>
           <Route path={ROUTES.POKEMON_LIST} element={<PokemonList/>}/>
           <Route path={ROUTES.POSTS} element={<Posts/>}/>
+          <Route path={ROUTES.ADD_MOVIE} element={<AddMovie/>}/>
           <Route path='/' element={<About/>}/>
         </Routes>
       </QueryClientProvider>
