@@ -16,10 +16,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store={store}>
-    <Router>
-      <I18nextProvider i18n={i18n}>
+    <I18nextProvider i18n={i18n}>
+      <Router>
         <App />
-      </I18nextProvider>
-    </Router>
+      </Router>
+    </I18nextProvider>
   </Provider>
 )

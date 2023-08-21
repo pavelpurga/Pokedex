@@ -1,10 +1,11 @@
 import React, {FC} from 'react';
 import {useTypedDispatch, useTypedSelector} from "../../store/store";
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import {Button} from "antd";
+import {ErrorMessage, Form, Formik} from "formik";
+import {Button, Input} from "antd";
 import {PostsTypes} from "../../entitysData/models/Posts.types";
 import {addPost} from "../../store/PostSlice";
 import {postsAPI} from "../../api/PostsApi";
+import {useTranslation} from "react-i18next";
 
 interface FormValues {
     title: string;
@@ -17,6 +18,7 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
   const [createPost,{error:createError,isLoading: createIsLoading}] = postsAPI.useCreatePostMutation()
   const allPosts: PostsTypes[] = useTypedSelector((state) => state.postReducer.posts);
   const dispatch = useTypedDispatch();
+  const { t } = useTranslation();
   const initialValues: FormValues = {
     title: "",
     body: ""
@@ -40,16 +42,16 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
       {({ values, handleChange, touched, errors }) => (
         <Form>
 
-          <Field id="title" name="title" value={values.title}
-            placeholder="Title"
+          <Input style={{marginBottom:5}} id="title" name="title" value={values.title}
+            placeholder={t("Title")}
             onChange={handleChange}
             className="form-control"
           />
           <ErrorMessage
             name="title" component="div" className="invalid-feedback" />
           
-          <Field id="body" name="body" value={values.body}
-            placeholder="Body"
+          <Input id="body" name="body" value={values.body}
+            placeholder={t("Body")}
             onChange={handleChange}
           />
           <ErrorMessage
@@ -61,7 +63,7 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
             type="primary"
             htmlType="submit"
           >
-                      Add post
+            {t('Add post')}
           </Button>
           {createIsLoading && <h1>Loading of create...</h1>}
           {createError && <h1>Create Error</h1>}

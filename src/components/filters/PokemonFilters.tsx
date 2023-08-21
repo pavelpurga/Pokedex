@@ -3,12 +3,14 @@ import '../../index.css'
 import {getColorByType} from "../../helpers/GetColor";
 import {allTypes} from "../../entitysData/constants/PokemonTypesColor";
 import {Button} from "antd";
+import {useTranslation} from "react-i18next";
 
 interface TypeFiltersProps {
   selectedTypes: string[];
   setSelectedTypes: (value: React.SetStateAction<string[]>) => void;
 }
 const PokemonFilters = ({selectedTypes,setSelectedTypes}:TypeFiltersProps ) => {
+  const { t } = useTranslation()
   const handleTypeSelect = (type: string) => {
     if (selectedTypes.includes(type)) {
       setSelectedTypes(selectedTypes.filter((t) => t !== type));
@@ -30,7 +32,7 @@ const PokemonFilters = ({selectedTypes,setSelectedTypes}:TypeFiltersProps ) => {
           style={buttonStyle(type)}
           onClick={() => handleTypeSelect(type)}
         >
-          {type}
+          {t(type)}
         </Button>
       ))}
     </div>

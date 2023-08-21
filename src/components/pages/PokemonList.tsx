@@ -12,6 +12,7 @@ import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
 import {addPokemon} from "../../store/PokemonSlice";
 import {ROUTES} from "../../entitysData/constants/API_ROUTS";
 import {withTranslation,useTranslation} from "react-i18next";
+import i18n from "../../entitysData/i18n/i18n";
 
 
 const PokemonList = () => {
@@ -19,11 +20,11 @@ const PokemonList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const dispatch = useTypedDispatch();
-  const [selectedLanguage,setSelectedLanguage] = useState("EN");
+  const [selectedLanguage,setSelectedLanguage] = useState("en");
   const { data: pokemon, error, isLoading } =
       pokemonAPI.useFetchAllPokemonQuery({limit:12,offset: offset})
   const[selectedPokemon, setSelectedPokemon] = useState<PokemonTypes | null>(null)
-  const { i18n,t } = useTranslation();
+  const { t } = useTranslation();
   const [allPokemonList, setAllPokemonList] = useState<PokemonTypes[]>(()=>{
     const localStoragePokemonList = JSON.parse(localStorage.getItem('pokemonList') || '[]') as PokemonTypes[];
     return localStoragePokemonList;
@@ -71,14 +72,14 @@ const PokemonList = () => {
         <div className="header">
           <h1 className="text">{t('Pokedex')}</h1>
         </div>
-        <Radio.Group value={selectedLanguage} onChange={(e)=>handleLanguageChange(e.target.value)}>
-          <Radio.Button value="RU">{t('RU')}</Radio.Button>
-          <Radio.Button value="EN">{t('EN')}</Radio.Button>
-          <Radio.Button value="UA">{t('UA')}</Radio.Button>
+        <Radio.Group value={selectedLanguage}>
+          <Radio.Button value="ru" onChange={(e)=>handleLanguageChange(e.target.value)} >{t('RU')}</Radio.Button>
+          <Radio.Button value="en" onChange={(e)=>handleLanguageChange(e.target.value)}>{t('EN')}</Radio.Button>
+          <Radio.Button value="ua" onChange={(e)=>handleLanguageChange(e.target.value)}>{t('UA')}</Radio.Button>
         </Radio.Group>
         <button className="btn"
           onClick={() => handleButtonClick(ROUTES.ABOUT)}>
-          Home
+          {t('Home')}
         </button>
         <button className="btn"
           onClick={() => handleButtonClick(ROUTES.POSTS)}>
@@ -86,14 +87,14 @@ const PokemonList = () => {
         </button>
       </div>
       <Button className="button_add" onClick={openModal}
-      >{t('AddPokemon')}
+      >{t('Add Pokemon')}
       </Button>
       <div className="add_container">
         <PokemonFilters
           selectedTypes={selectedTypes}
           setSelectedTypes={setSelectedTypes}/>
         <Modal
-          title={t('AddingPokemons')}
+          title={t('Adding Pokemons')}
           open={isModalVisible}
           onCancel={closeModal}
           footer={null}
@@ -102,7 +103,7 @@ const PokemonList = () => {
         </Modal>
         <div className="card_list">
           {isLoading && <Spin/>}
-          {error && <h1>{t('loadingError')}</h1>}
+          {error && <h1>{t('Loading Error')}</h1>}
           {allPokemonList?.length &&  allPokemonList?.filter((pokemon) =>
             selectedTypes.length === 0 ? true
               : pokemon.types.find((type) => selectedTypes.includes(type))
@@ -119,7 +120,7 @@ const PokemonList = () => {
       </div>
       {pokemon && (
         <Button className="load_more_button" style={{width: 350}} type="primary"
-          onClick={handleLoadMore}><strong>{t('LoadMore')}</strong></Button>
+          onClick={handleLoadMore}><strong>{t('Load More')}</strong></Button>
       )}
     </>
   );

@@ -5,6 +5,7 @@ import {validationSchema} from "./FormValidation";
 import {useTypedDispatch} from "../../store/store";
 import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
 import {addPokemon} from "../../store/PokemonSlice";
+import {useTranslation} from "react-i18next";
 
 interface FormValues {
     name: string;
@@ -18,6 +19,7 @@ interface Props {
 }
 const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
   const dispatch = useTypedDispatch();
+  const { t } = useTranslation();
 
   const initialValues: FormValues = {
     name: "",
@@ -51,7 +53,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
               <div className={`form-group ${touched.name && errors.name ? 'is-invalid' : touched.name && !errors.name ? 'is-valid' : ''}`}>
 
                 <Input id="name" name="name" value={values.name}
-                  placeholder="Name"
+                  placeholder={t('Name')}
                   onChange={handleChange}
                   className="form-control"
                 />
@@ -62,7 +64,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
             <Col span={24} sm={12}>
               <div className={`form-group ${touched.types && errors.types ? 'is-invalid' : touched.types && !errors.types ? 'is-valid' : ''}`}>
                 <Input id="types" name="types" value={values.types}
-                  placeholder="Type/s"
+                  placeholder={t('Type/s')}
                   onChange={handleChange}
                 />
                 <ErrorMessage
@@ -72,7 +74,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
             <Col span={24} sm={12}>
               <div className={`form-group ${touched.image && errors.image ? 'is-invalid' : touched.image && !errors.image ? 'is-valid' : ''}`} >
                 <Input id="image" name="image" value={values.image}
-                  placeholder="Image(URL)"
+                  placeholder={t('Image(URL)')}
                   onChange={handleChange} />
                 <ErrorMessage
                   name="image" component="div" className="invalid-feedback" />
@@ -81,7 +83,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
             <Col span={24} sm={12}>
               <div className={`form-group ${touched.stats && errors.stats ? 'is-invalid' : touched.stats && !errors.stats ? 'is-valid' : ''}`}>
                 <Input id="stats" name="stats" value={values.stats}
-                  placeholder="Stats(through comma)"
+                  placeholder={t("Stats(through comma)")}
                   onChange={handleChange} />
                 <ErrorMessage
                   name="stats" component="div" className="invalid-feedback" />
@@ -90,7 +92,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
             <Col span={24}>
               <div className={`form-group ${touched.moves && errors.moves ? 'is-invalid' : touched.moves && !errors.moves ? 'is-valid' : ''}`}>
                 <Input id="moves" name="moves" value={values.moves}
-                  placeholder="Moves(through comma)"
+                  placeholder={t("Moves(through comma)")}
                   onChange={handleChange} />
                 <ErrorMessage
                   name="moves" component="div" className="invalid-feedback" />
