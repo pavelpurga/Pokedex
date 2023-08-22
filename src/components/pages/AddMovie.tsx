@@ -13,7 +13,6 @@ const AddMovieContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 917px;
-  
 `;
 
 const FormContainer = styled.form`
@@ -24,10 +23,16 @@ const FormContainer = styled.form`
   height: 917px;
   padding: 40px 60px 0;
 `;
+const FormColumnContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  grid-column-gap: 20px; 
+`;
 const Label = styled.label`
   color: #F65261;
   display: block;
-  margin-bottom: 8px;
+  padding-top: 30px;
+  padding-bottom: 13px;
 `;
 
 const Input = styled.input`
@@ -45,8 +50,8 @@ const Input = styled.input`
 `;
 const TextArea =styled.textarea`
   background: #424242;
-  width: 525px;
-  height: 57px;
+  width: auto;
+  height: 197px;
   padding: 8px;
   border: 1px solid #ccc;
 `;
@@ -63,6 +68,8 @@ const ButtonContainer = styled.div`
   margin-top: 16px;
   display: flex;
   justify-content: flex-end;
+  padding-bottom: 60px;
+  padding-top: 60px;
 `;
 
 const Button = styled.button`
@@ -73,6 +80,7 @@ const Button = styled.button`
   transition: background-color 0.3s, color 0.3s;
   width: 182px;
   height: 57px;
+  margin-left: 13px;
   &:active {
     background-color: #F65261;
     color: white;
@@ -125,32 +133,44 @@ const ErrorMessage = styled.p`
 `;
 
 const DatePickerContainer = styled.div`
+  position: relative;
+  
   .react-datepicker {
-    
     border: 1px solid #ccc;
   }
-
-  .react-datepicker__input-container {
-    display: block;
-  }
-
+  
   .react-datepicker__input-container input {
     background: #424242;
     width: 301px;
     height: 57px;
     padding: 8px;
   }
+  .react-datepicker__input-container image{
+    width: 24px;
+    height: 21px;
+    background-image: url(../../images/CalendarIcon.svg);
+    background-repeat: no-repeat;
+    background-size: contain
+  }
 `;
 const TitleContainer = styled.div`
   display: flex;
+  width: 249px;
   justify-content: center;
   align-items: center;
-  margin-bottom: 24px;
+  padding-bottom: 71px;
+  padding-top: 63px;
 `;
 
 const Title = styled.div`
-  font-size: 24px;
-  color: #F65261;
+  color: #FFF;
+  font-family: Montserrat;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 `;
 const AddMovie = () => {
   const navigate = useNavigate();
@@ -193,28 +213,12 @@ const AddMovie = () => {
           <TitleContainer>
             <Title>Add Movie</Title>
           </TitleContainer>
-          <div>
+          <FormColumnContainer>
             <div>
               <Label>Title</Label>
-              <Input type="text" className="big_input"  {...register('title', { required: true })} />
+              <Input type="text" className="big_input" placeholder="title"  {...register('title', { required: true })} />
               {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
             </div>
-            <div>
-              <Label>Movie URL</Label>
-              <Input type="text" className="big_input" {...register('movieUrl', { required: true })} />
-              {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
-            </div>
-            <div>
-              <Label>Genre</Label>
-              <Select  {...register('genre', { required: true })}>
-                <option value="">Select genre</option>
-                <option value="action">Action</option>
-                <option value="comedy">Comedy</option>
-              </Select>
-              {errors.genre && <ErrorMessage>This field is required</ErrorMessage>}
-            </div>
-          </div>
-          <div>
             <div>
               <Label>Release Date</Label>
               <DatePickerContainer>
@@ -222,25 +226,40 @@ const AddMovie = () => {
                   selected={releaseDate}
                   onChange={date => setReleaseDate(date)}
                   dateFormat="dd/MM/yyyy"
-                  placeholderText="dd/MM/yyyy"
+                  placeholderText="Select date"
                   wrapperClassName="react-datepicker__input-container"
-                />
+                >
+                </DatePicker>
               </DatePickerContainer>
               {errors.releaseDate && <ErrorMessage>This field is required</ErrorMessage>}
             </div>
             <div>
-              <Label>Rating</Label>
-              <Input type="text" className="small_input" {...register('rating', { required: true })} />
+              <Label>Movie URL</Label>
+              <Input type="text" className="big_input" placeholder="https://" {...register('movieUrl', { required: true })} />
               {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
             </div>
             <div>
-              <Label>Runtime</Label>
-              <Input type="text" className="small_input" {...register('runtime', { required: true })} />
+              <Label>Rating</Label>
+              <Input type="text" className="small_input" placeholder="7,8" {...register('rating', { required: true })} />
               {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
             </div>
-          </div>
+            <div>
+              <Label>Genre</Label>
+              <Select  placeholder="select genre" {...register('genre', { required: true })}>
+                <option value="">Select genre</option>
+                <option value="action">Action</option>
+                <option value="comedy">Comedy</option>
+              </Select>
+              {errors.genre && <ErrorMessage>This field is required</ErrorMessage>}
+            </div>
+            <div>
+              <Label>Runtime</Label>
+              <Input type="text" className="small_input" placeholder="minutes" {...register('runtime', { required: true })} />
+              {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
+            </div>
+          </FormColumnContainer>
           <Label>Overview</Label>
-          <TextArea  {...register('overview', { required: true })} />
+          <TextArea  placeholder="Movie description" {...register('overview', { required: true })} />
           {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
           
           <ButtonContainer>
