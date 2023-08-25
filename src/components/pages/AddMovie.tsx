@@ -2,12 +2,20 @@ import React, {useState} from 'react';
 import {ROUTES} from "../../entitysData/constants/API_ROUTS";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {useForm} from "react-hook-form";
+import {useForm, SubmitHandler, FieldValues} from "react-hook-form";
 import styled from "styled-components";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/AddMovie.css'
-
+interface FormData {
+  title: string;
+  releaseDate: string;
+  movieUrl: string;
+  rating: string;
+  genre: string;
+  runtime: string;
+  overview: string;
+}
 const AddMovieContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -37,6 +45,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   background: #424242;
+  color: white;
   padding: 8px;
   border: 1px solid #ccc;
   &.big_input{
@@ -50,6 +59,7 @@ const Input = styled.input`
 `;
 const TextArea =styled.textarea`
   background: #424242;
+  color: white;
   width: auto;
   height: 197px;
   padding: 8px;
@@ -144,14 +154,16 @@ const DatePickerContainer = styled.div`
     width: 301px;
     height: 57px;
     padding: 8px;
+    padding-right: 30px;
+    position: relative;
   }
-  .react-datepicker__input-container image{
-    width: 24px;
-    height: 21px;
-    background-image: url(../../images/CalendarIcon.svg);
-    background-repeat: no-repeat;
-    background-size: contain
-  }
+`;
+const Icon = styled.span`
+  background-image: url(../../images/CalendarIcon.svg);
+  width: 24px;
+  height: 22px;
+  background-repeat: no-repeat;
+  background-size: contain;
 `;
 const TitleContainer = styled.div`
   display: flex;
@@ -178,18 +190,18 @@ const AddMovie = () => {
   const [releaseDate, setReleaseDate] = useState<Date | null>(null);
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [isModalOpen, setModalOpen] = useState(false);
-
+  const [formData, setFormData] = useState<FormData | null>(null);
   const handleButtonClick = (route:any) => {
     navigate(route);
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit :SubmitHandler<FieldValues> = (data: any) => {
     if (releaseDate) {
       data.releaseDate = releaseDate.toLocaleDateString('en-US');
     }
 
+    setFormData(data);
     setModalOpen(true);
-    console.log(data);
   };
   const closeModal = () => {
     setModalOpen(false);
@@ -216,8 +228,14 @@ const AddMovie = () => {
           <FormColumnContainer>
             <div>
               <Label>Title</Label>
-              <Input type="text" className="big_input" placeholder="title"  {...register('title', { required: true })} />
+              <Input type="text" className="big_input" placeholder="title"  {...register('title', {
+                required: true,
+                pattern: /^[A-Za-z].*$/,
+              })} />
               {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
+              {errors.title?.type === 'pattern' && (
+                <ErrorMessage>Title must start with a letter</ErrorMessage>
+              )}
             </div>
             <div>
               <Label>Release Date</Label>
@@ -230,18 +248,31 @@ const AddMovie = () => {
                   wrapperClassName="react-datepicker__input-container"
                 >
                 </DatePicker>
+                <Icon />
               </DatePickerContainer>
               {errors.releaseDate && <ErrorMessage>This field is required</ErrorMessage>}
             </div>
             <div>
               <Label>Movie URL</Label>
-              <Input type="text" className="big_input" placeholder="https://" {...register('movieUrl', { required: true })} />
+              <Input type="text" className="big_input" placeholder="https://" {...register('movieUrl', {
+                required: true,
+                pattern: /^(ftp|http|https):\/\/[^ "]+$/,
+              })} />
               {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
+              {errors.movieUrl?.type === 'pattern' && (
+                <ErrorMessage>Invalid URL</ErrorMessage>
+              )}
             </div>
             <div>
               <Label>Rating</Label>
-              <Input type="text" className="small_input" placeholder="7,8" {...register('rating', { required: true })} />
+              <Input type="text" className="small_input" placeholder="7,8" {...register('rating', {
+                required: true,
+                pattern: /^10$|^([0-9]|10),[0-9]$/,
+              })} />
               {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
+              {errors.rating?.type === 'pattern' && (
+                <ErrorMessage>Invalid rating</ErrorMessage>
+              )}
             </div>
             <div>
               <Label>Genre</Label>
@@ -254,8 +285,18 @@ const AddMovie = () => {
             </div>
             <div>
               <Label>Runtime</Label>
-              <Input type="text" className="small_input" placeholder="minutes" {...register('runtime', { required: true })} />
+              <Input type="text" className="small_input" placeholder="minutes" {...register('runtime', {
+                required: true,
+                pattern: /^\d+$/,
+                min: 1,
+              })} />
               {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
+              {errors.runtime?.type === 'pattern' && (
+                <ErrorMessage>Invalid runtime</ErrorMessage>
+              )}
+              {errors.runtime?.type === 'min' && (
+                <ErrorMessage>Runtime must be at least 1 minute</ErrorMessage>
+              )}
             </div>
           </FormColumnContainer>
           <Label>Overview</Label>
@@ -268,11 +309,18 @@ const AddMovie = () => {
           </ButtonContainer>
         </FormContainer>
 
-        {isModalOpen && (
+        {isModalOpen && formData && (
           <ModalOverlay>
             <ModalContent>
               <ModalTitle>Success!</ModalTitle>
               <p>Your form has been submitted successfully.</p>
+              <p>Title: {formData.title}</p>
+              <p>Release Date: {formData.releaseDate}</p>
+              <p>Movie URL: {formData.movieUrl}</p>
+              <p>Rating: {formData.rating}</p>
+              <p>Genre: {formData.genre}</p>
+              <p>Runtime: {formData.runtime}</p>
+              <p>Overview: {formData.overview}</p>
               <ModalButtonContainer>
                 <ModalButton onClick={closeModal}>Close</ModalButton>
               </ModalButtonContainer>
