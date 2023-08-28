@@ -75,7 +75,8 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
               <div className={`form-group ${touched.image && errors.image ? 'is-invalid' : touched.image && !errors.image ? 'is-valid' : ''}`} >
                 <Input id="image" name="image" value={values.image}
                   placeholder={t('Image(URL)')}
-                  onChange={handleChange} />
+                  onChange={handleChange}
+                />
                 <ErrorMessage
                   name="image" component="div" className="invalid-feedback" />
               </div>

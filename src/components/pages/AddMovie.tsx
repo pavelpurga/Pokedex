@@ -158,8 +158,8 @@ const DatePickerContainer = styled.div`
     position: relative;
   }
 `;
-const Icon = styled.span`
-  background-image: url(../../images/CalendarIcon.svg);
+const Icon = styled.img`
+  background-image: url("../../images/CalendarIcon.svg");
   width: 24px;
   height: 22px;
   background-repeat: no-repeat;
@@ -248,7 +248,7 @@ const AddMovie = () => {
                   wrapperClassName="react-datepicker__input-container"
                 >
                 </DatePicker>
-                <Icon />
+                <Icon/>
               </DatePickerContainer>
               {errors.releaseDate && <ErrorMessage>This field is required</ErrorMessage>}
             </div>

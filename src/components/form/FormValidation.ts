@@ -15,5 +15,11 @@ export const validationSchema = Yup.object().shape({
       const types = value.split(",").map((type) => type.trim());
       return types.every((type) => allTypes.includes(type));
     }
-  )
+  ),
+  image: Yup.string().required('Image URL is required').test('url', 'Invalid URL', (value) => {
+    if (value && !/^https?:\/\/\S+$/.test(value)) {
+      return false;
+    }
+    return true;
+  }),
 });
