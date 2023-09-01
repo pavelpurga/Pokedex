@@ -7,6 +7,20 @@ import styled from "styled-components";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/AddMovie.css'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import calendarIcon  from "../../images/icon.svg"
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import fillDownIcon from "../../images/FillDown.svg"
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import fillUpIcon from "../../images/FillUp.svg"
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import groupIcon from "../../images/Group.svg"
+
 interface FormData {
   title: string;
   releaseDate: string;
@@ -16,6 +30,8 @@ interface FormData {
   runtime: string;
   overview: string;
 }
+
+
 const AddMovieContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -46,7 +62,9 @@ const Label = styled.label`
 const Input = styled.input`
   background: #424242;
   color: white;
-  padding: 8px;
+  padding-top: 16px;
+  padding-left: 18px;
+  padding-bottom: 17px;
   border: 1px solid #ccc;
   &.big_input{
     width: 525px;
@@ -62,7 +80,9 @@ const TextArea =styled.textarea`
   color: white;
   width: auto;
   height: 197px;
-  padding: 8px;
+  padding-top: 16px;
+  padding-left: 18px;
+  padding-bottom: 17px;
   border: 1px solid #ccc;
 `;
 
@@ -70,8 +90,23 @@ const Select = styled.select`
   background: #424242;
   width: 525px;
   height: 57px;
-  padding: 8px;
+  padding-top: 16px;
+  padding-left: 18px;
+  padding-bottom: 17px;
   border: 1px solid #ccc;
+  appearance: none;
+  
+  &{
+    background-image: url(${fillUpIcon});
+    background-repeat: no-repeat;
+    background-position: right 23px center;
+    background-size: 20px 12px;
+  }
+  
+  &:focus {
+    outline: none;
+    background-image: url(${fillDownIcon});
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -102,24 +137,66 @@ const Button = styled.button`
 `;
 
 const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  background: #232323;
+  width: 686px;
+  height: auto;
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
 `;
 
 const ModalContent = styled.div`
-  background-color: #fff;
+  background-color: #232323;
   padding: 16px;
+  position: relative;
+`;
+const ModalIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  top: 42px;
+  margin-left: 310px;
+  margin-right: 310px;
+  width: 66px;
+  height: 66px;
+  background-image: url(${groupIcon});
+  background-size: cover;
 `;
 
 const ModalTitle = styled.h2`
-  margin-top: 0;
+  margin-top: 31px;
+  margin-bottom: 29px;
+  display: flex;
+  justify-content: center;
+  color: #FFF;
+  font-family: Montserrat;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+`;
+const ModalDescr = styled.p`
+  color: #FFF;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: auto; 
+  margin-left: 192px;
+  margin-right: 192px;
+`;
+const ModalDataContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ padding-top: 29px;
+  color: white;
 `;
 
 const ModalButtonContainer = styled.div`
@@ -144,27 +221,36 @@ const ErrorMessage = styled.p`
 
 const DatePickerContainer = styled.div`
   position: relative;
-  
+
   .react-datepicker {
     border: 1px solid #ccc;
   }
-  
+
   .react-datepicker__input-container input {
     background: #424242;
     width: 301px;
     height: 57px;
-    padding: 8px;
-    padding-right: 30px;
     position: relative;
+    padding-top: 16px;
+    padding-left: 18px;
+    padding-bottom: 17px;
+    color: white;
+  }
+
+  .datepicker-icon {
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 22px;
+    background-image: url(${calendarIcon});
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
   }
 `;
-const Icon = styled.img`
-  background-image: url("../../images/CalendarIcon.svg");
-  width: 24px;
-  height: 22px;
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
+
 const TitleContainer = styled.div`
   display: flex;
   width: 249px;
@@ -184,6 +270,7 @@ const Title = styled.div`
   letter-spacing: 1px;
   text-transform: uppercase;
 `;
+
 const AddMovie = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -191,6 +278,7 @@ const AddMovie = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [isModalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState<FormData | null>(null);
+
   const handleButtonClick = (route:any) => {
     navigate(route);
   };
@@ -246,9 +334,8 @@ const AddMovie = () => {
                   dateFormat="dd/MM/yyyy"
                   placeholderText="Select date"
                   wrapperClassName="react-datepicker__input-container"
-                >
-                </DatePicker>
-                <Icon/>
+                />
+                <span className="datepicker-icon"></span>
               </DatePickerContainer>
               {errors.releaseDate && <ErrorMessage>This field is required</ErrorMessage>}
             </div>
@@ -276,7 +363,7 @@ const AddMovie = () => {
             </div>
             <div>
               <Label>Genre</Label>
-              <Select  placeholder="select genre" {...register('genre', { required: true })}>
+              <Select  placeholder="select genre" {...register('genre', { required: true })} >
                 <option value="">Select genre</option>
                 <option value="action">Action</option>
                 <option value="comedy">Comedy</option>
@@ -312,15 +399,18 @@ const AddMovie = () => {
         {isModalOpen && formData && (
           <ModalOverlay>
             <ModalContent>
-              <ModalTitle>Success!</ModalTitle>
-              <p>Your form has been submitted successfully.</p>
-              <p>Title: {formData.title}</p>
-              <p>Release Date: {formData.releaseDate}</p>
-              <p>Movie URL: {formData.movieUrl}</p>
-              <p>Rating: {formData.rating}</p>
-              <p>Genre: {formData.genre}</p>
-              <p>Runtime: {formData.runtime}</p>
-              <p>Overview: {formData.overview}</p>
+              <ModalIcon/>
+              <ModalTitle>Congratulation!</ModalTitle>
+              <ModalDescr>The movie has been added to database successfully</ModalDescr>
+              <ModalDataContainer>
+                <p style={{marginBottom:5}}>Title: {formData.title}</p>
+                <p style={{marginBottom:5}}>Release Date: {formData.releaseDate}</p>
+                <p style={{marginBottom:5}}>Movie URL: {formData.movieUrl}</p>
+                <p style={{marginBottom:5}}>Rating: {formData.rating}</p>
+                <p style={{marginBottom:5}}>Genre: {formData.genre}</p>
+                <p style={{marginBottom:5}}>Runtime: {formData.runtime}</p>
+                <p style={{marginBottom:5}}>Overview: {formData.overview}</p>
+              </ModalDataContainer>
               <ModalButtonContainer>
                 <ModalButton onClick={closeModal}>Close</ModalButton>
               </ModalButtonContainer>
