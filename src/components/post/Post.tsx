@@ -28,7 +28,7 @@ const Post : FC<PostProps> = ({post,image}) => {
         extra={<Button onClick={openModal}>More</Button>}
       >
         <div style={{display:"flex"}}>
-          {image && <img src={image} alt={`Пост ${post.id}`} />}
+          {image && <img src={image} alt={`Пост ${post.id}`} style={{width:80,height:130}} />}
           <div style={{ marginLeft: 10, flexGrow: 1 }}>{post.body}</div>
         </div>
         <Modal
