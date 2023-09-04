@@ -13,13 +13,8 @@ import '../../styles/AddMovie.css'
 import calendarIcon  from "../../images/icon.svg"
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import fillDownIcon from "../../images/FillDown.svg"
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import fillUpIcon from "../../images/FillUp.svg"
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import groupIcon from "../../images/Group.svg"
+import Selector from "../UI/Selector";
 
 interface FormData {
   title: string;
@@ -36,7 +31,7 @@ const AddMovieContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 917px;
+  height: auto;
 `;
 
 const FormContainer = styled.form`
@@ -44,7 +39,7 @@ const FormContainer = styled.form`
   flex-direction: column;
   background: #232323;
   width: 976px;
-  height: 917px;
+  height: auto;
   padding: 40px 60px 0;
 `;
 const FormColumnContainer = styled.div`
@@ -86,35 +81,13 @@ const TextArea =styled.textarea`
   border: 1px solid #ccc;
 `;
 
-const Select = styled.select`
-  background: #424242;
-  width: 525px;
-  height: 57px;
-  padding-top: 16px;
-  padding-left: 18px;
-  padding-bottom: 17px;
-  border: 1px solid #ccc;
-  appearance: none;
-  
-  &{
-    background-image: url(${fillUpIcon});
-    background-repeat: no-repeat;
-    background-position: right 23px center;
-    background-size: 20px 12px;
-  }
-  
-  &:focus {
-    outline: none;
-    background-image: url(${fillDownIcon});
-  }
-`;
-
 const ButtonContainer = styled.div`
   margin-top: 16px;
   display: flex;
   justify-content: flex-end;
   padding-bottom: 60px;
   padding-top: 60px;
+  position: relative;
 `;
 
 const Button = styled.button`
@@ -126,14 +99,11 @@ const Button = styled.button`
   width: 182px;
   height: 57px;
   margin-left: 13px;
-  &:active {
+  &:hover {
     background-color: #F65261;
     color: white;
   }
   
-  &:focus {
-    outline: none;
-  }
 `;
 
 const ModalOverlay = styled.div`
@@ -363,11 +333,7 @@ const AddMovie = () => {
             </div>
             <div>
               <Label>Genre</Label>
-              <Select  placeholder="select genre" {...register('genre', { required: true })} >
-                <option value="">Select genre</option>
-                <option value="action">Action</option>
-                <option value="comedy">Comedy</option>
-              </Select>
+              <Selector/>
               {errors.genre && <ErrorMessage>This field is required</ErrorMessage>}
             </div>
             <div>
