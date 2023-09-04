@@ -6,7 +6,6 @@ import {useForm, SubmitHandler, FieldValues} from "react-hook-form";
 import styled from "styled-components";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import '../../styles/AddMovie.css'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -242,6 +241,7 @@ const Title = styled.div`
 `;
 
 const AddMovie = () => {
+  const [selectedGenre, setSelectedGenre] = useState('');
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [releaseDate, setReleaseDate] = useState<Date | null>(null);
@@ -333,7 +333,7 @@ const AddMovie = () => {
             </div>
             <div>
               <Label>Genre</Label>
-              <Selector/>
+              <Selector onSelectGenre={setSelectedGenre} />
               {errors.genre && <ErrorMessage>This field is required</ErrorMessage>}
             </div>
             <div>
@@ -373,7 +373,7 @@ const AddMovie = () => {
                 <p style={{marginBottom:5}}>Release Date: {formData.releaseDate}</p>
                 <p style={{marginBottom:5}}>Movie URL: {formData.movieUrl}</p>
                 <p style={{marginBottom:5}}>Rating: {formData.rating}</p>
-                <p style={{marginBottom:5}}>Genre: {formData.genre}</p>
+                <p style={{marginBottom:5}}>Genre: {selectedGenre}</p>
                 <p style={{marginBottom:5}}>Runtime: {formData.runtime}</p>
                 <p style={{marginBottom:5}}>Overview: {formData.overview}</p>
               </ModalDataContainer>

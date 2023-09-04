@@ -10,16 +10,12 @@ import fillUpIcon from "../../images/FillUp.svg"
 // @ts-ignore
 import indicatorIcon from "../../images/Indicator.svg"
 
-interface SelectorInputProps {
-  isOpen: boolean;
-}
-
 const SelectorContainer = styled.div`
   position: relative;
   display: inline-block;
 `;
 
-const SelectorInput = styled.input<SelectorInputProps>`
+const SelectorInput = styled.input<{ isopen?: string }>`
   background: #424242;
   padding-top: 16px;
   padding-left: 18px;
@@ -28,7 +24,7 @@ const SelectorInput = styled.input<SelectorInputProps>`
   appearance: none;
   width: 525px;
   height: 57px;
-  background-image: url(${props => (props.isOpen ? fillDownIcon : fillUpIcon)});
+  background-image: url(${props => (props.isopen === 'true' ? fillDownIcon : fillUpIcon)});
   background-repeat: no-repeat;
   background-position: right 23px center;
   background-size: 20px 12px;
@@ -97,7 +93,11 @@ const Hint = styled.div`
   line-height: normal;
 `;
 
-const Selector = () => {
+type SelectorProps = {
+  onSelectGenre: (genre: string) => void;
+};
+
+const Selector = ({ onSelectGenre }: SelectorProps) => {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
@@ -106,16 +106,17 @@ const Selector = () => {
   };
 
   const handleOptionChange = (value : string) => {
-    if (selectedOptions.includes(value)) {
-      setSelectedOptions(selectedOptions.filter(option => option !== value));
-    } else {
-      setSelectedOptions([...selectedOptions, value]);
-    }
+    const updatedOptions = selectedOptions.includes(value)
+      ? selectedOptions.filter(option => option !== value)
+      : [...selectedOptions, value];
+
+    setSelectedOptions(updatedOptions);
+    onSelectGenre(updatedOptions.join(', '));
   };
 
   return (
     <SelectorContainer>
-      <SelectorInput type="text" onClick={toggleOptions} readOnly value={'Select Genre'} isOpen={showOptions} />
+      <SelectorInput type="text" onClick={toggleOptions} readOnly value={'Select Genre'} isopen={showOptions ? 'true' : undefined} />
       {showOptions && (
         <SelectorOptions>
           <OptionLabel>
