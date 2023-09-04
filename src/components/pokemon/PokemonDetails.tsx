@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Card, Divider, Tag} from "antd";
-import '../../styles/index.css'
+import '../../index.css'
 import { getColorByType } from "../../helpers/GetColor";
 import {useTypedDispatch} from "../../store/store";
 import {PokemonTypes} from "../../entitysData/models/Pokemon.types";

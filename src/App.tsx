@@ -1,7 +1,7 @@
 import React, { type FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import PokemonList from './components/pages/PokemonList'
-import './styles/index.css'
+import './index.css'
 import {useTypedDispatch} from "./store/store";
 import {Route, Routes} from "react-router-dom";
 import About from "./components/pages/About";

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/index.css'
+import '../../index.css'
 import {getColorByType} from "../../helpers/GetColor";
 import {allTypes} from "../../entitysData/constants/PokemonTypesColor";
 import {Button} from "antd";

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PokemonDetail from "../pokemon/PokemonDetails";
 import {Button, Modal, Radio, Spin} from "antd";
-import '../../styles/index.css'
+import '../../index.css'
 import PokemonFilters from "../filters/PokemonFilters";
 import AddPokemonForm from "../form/AddPokemonForm";
 import {useTypedDispatch} from "../../store/store";

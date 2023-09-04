@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Card, Tag} from "antd";
 import {getColorByType} from "../../helpers/GetColor";
-import '../../styles/index.css'
+import '../../index.css'
 import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
 
 interface PokemonProps {

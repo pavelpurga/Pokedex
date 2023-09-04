@@ -6,14 +6,25 @@ import {useForm, SubmitHandler, FieldValues} from "react-hook-form";
 import styled from "styled-components";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import calendarIcon  from "../../images/icon.svg"
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import groupIcon from "../../images/Group.svg"
-import Selector from "../UI/Selector";
+import Selector from "../UI/selector/Selector";
+import {Input} from "../UI/input/Input.styles";
+import {TextArea} from "../UI/textArea/TextArea.styles";
+import {DatePickerContainer} from "../UI/datePicker/DatePicker.styles";
+import {
+  ModalButton, ModalButtonContainer,
+  ModalContent,
+  ModalDataContainer,
+  ModalDescr,
+  ModalIcon,
+  ModalOverlay,
+  ModalTitle
+} from "../UI/movieModal/MovieModal.styles";
+import {Button, ButtonContainer} from "../UI/button/Button.styles";
+import {
+  AddMovieContainer,
+  FormColumnContainer,
+  FormContainer
+} from "../UI/movieFormContainers/MovieFormContainers.styles";
 
 interface FormData {
   title: string;
@@ -24,202 +35,17 @@ interface FormData {
   runtime: string;
   overview: string;
 }
-const AddMovieContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-`;
-const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  background: #232323;
-  width: 976px;
-  height: auto;
-  padding: 40px 60px 0;
-`;
-const FormColumnContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  grid-column-gap: 20px; 
-`;
+
 const Label = styled.label`
   color: #F65261;
   display: block;
   padding-top: 30px;
   padding-bottom: 13px;
 `;
-const Input = styled.input`
-  background: #424242;
-  color: white;
-  padding-top: 16px;
-  padding-left: 18px;
-  padding-bottom: 17px;
-  border: 1px solid #ccc;
-  &.big_input{
-    width: 525px;
-    height: 57px;
-  }
-  &.small_input{
-    width: 301px;
-    height: 57px;
-  }
-  &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px #424242 inset !important;
-    -webkit-text-fill-color: white !important;
-  }
-`;
-const TextArea =styled.textarea`
-  background: #424242;
-  color: white;
-  width: auto;
-  height: 197px;
-  padding-top: 16px;
-  padding-left: 18px;
-  padding-bottom: 17px;
-  border: 1px solid #ccc;
-`;
-
-const ButtonContainer = styled.div`
-  margin-top: 16px;
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: 60px;
-  padding-top: 60px;
-  position: relative;
-`;
-
-const Button = styled.button`
-  background-color: black;
-  color: #F65261;
-  border: 2px solid #F65261;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  width: 182px;
-  height: 57px;
-  margin-left: 13px;
-  &:hover {
-    background-color: #F65261;
-    color: white;
-  }
-  
-`;
-
-const ModalOverlay = styled.div`
-  position: absolute;
-  background: #232323;
-  width: 686px;
-  height: auto;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-`;
-
-const ModalContent = styled.div`
-  background-color: #232323;
-  padding: 16px;
-  position: relative;
-`;
-const ModalIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  top: 42px;
-  margin-left: 310px;
-  margin-right: 310px;
-  width: 66px;
-  height: 66px;
-  background-image: url(${groupIcon});
-  background-size: cover;
-`;
-
-const ModalTitle = styled.h2`
-  margin-top: 31px;
-  margin-bottom: 29px;
-  display: flex;
-  justify-content: center;
-  color: #FFF;
-  font-family: Montserrat;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-`;
-const ModalDescr = styled.p`
-  color: #FFF;
-  text-align: center;
-  font-family: Montserrat;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-bottom: auto; 
-  margin-left: 192px;
-  margin-right: 192px;
-`;
-const ModalDataContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
- padding-top: 29px;
-  color: white;
-`;
-
-const ModalButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
-`;
-
-const ModalButton = styled.button`
-  padding: 8px 16px;
-  background-color: #ccc;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin-left: 8px;
-`;
-
 const ErrorMessage = styled.p`
   color: red;
   margin-top: 4px;
 `;
-
-const DatePickerContainer = styled.div`
-  position: relative;
-
-  .react-datepicker {
-    border: 1px solid #ccc;
-  }
-
-  .react-datepicker__input-container input {
-    background: #424242;
-    width: 301px;
-    height: 57px;
-    position: relative;
-    padding-top: 16px;
-    padding-left: 18px;
-    padding-bottom: 17px;
-    color: white;
-  }
-
-  .datepicker-icon {
-    position: absolute;
-    top: 50%;
-    right: 18px;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 22px;
-    background-image: url(${calendarIcon});
-    background-repeat: no-repeat;
-    background-size: contain;
-    pointer-events: none;
-  }
-`;
-
 const TitleContainer = styled.div`
   display: flex;
   width: 249px;

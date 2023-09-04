@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import '../../styles/index.css'
+import '../../index.css'
 import {Radio} from "antd";
 import i18n from "../../entitysData/i18n/i18n";
 import {useTranslation} from "react-i18next";
