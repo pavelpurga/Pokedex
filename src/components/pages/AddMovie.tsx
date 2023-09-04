@@ -25,15 +25,12 @@ interface FormData {
   runtime: string;
   overview: string;
 }
-
-
 const AddMovieContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: auto;
 `;
-
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
@@ -53,7 +50,6 @@ const Label = styled.label`
   padding-top: 30px;
   padding-bottom: 13px;
 `;
-
 const Input = styled.input`
   background: #424242;
   color: white;
@@ -68,6 +64,10 @@ const Input = styled.input`
   &.small_input{
     width: 301px;
     height: 57px;
+  }
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #424242 inset !important;
+    -webkit-text-fill-color: white !important;
   }
 `;
 const TextArea =styled.textarea`
