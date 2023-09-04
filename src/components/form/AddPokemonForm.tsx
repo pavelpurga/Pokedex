@@ -104,7 +104,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
             style={{marginLeft:'160px',marginTop:'10px'}}
             type="primary"
             htmlType="submit">
-            Add pokemon
+            {t('Add Pokemon')}
           </Button>
         </Form>
       )}

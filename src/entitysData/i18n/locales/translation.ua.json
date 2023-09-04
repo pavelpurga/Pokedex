@@ -2,8 +2,8 @@
 "Pokedex": "Покедекс",
 "Home": "Додому",
 "Posts": "Пости",
-"AddPokemon":"Додати покемона",
-"AddingPokemons":"Додавання покимонiв",
+"Add Pokemon":"Додати покемона",
+"Adding Pokemons":"Додавання покимонiв",
 "Name": "Назва",
 "Type/s":"Тип/и",
 "Stats(through comma)":"Стати(через кому)",
@@ -27,11 +27,11 @@
 "dark": "темрява",
 "steel": "сталь",
 "fairy": "чарiвний",
-"Thisapplicationwasdevelopedforeducationalpurposes,thefirsttask.":
+"This application was developed for educational purposes, the first task.":
 "Ця програма була розроблена в освітніх цілях, перша тяга",
-"Addnewpostinlocal":"Додати новий пост",
+"Add new post in local":"Додати новий пост",
 "Title":"Заголовок посту",
 "Body":"Вмiст посту",
-"Addingposts":"Додавання постiв",
-"Addpost": "Додати пост"
+"Adding posts":"Додавання постiв",
+"Add post": "Додати пост"
 }
