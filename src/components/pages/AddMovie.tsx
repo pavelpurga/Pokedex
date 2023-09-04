@@ -354,7 +354,7 @@ const AddMovie = () => {
               <Label>Rating</Label>
               <Input type="text" className="small_input" placeholder="7,8" {...register('rating', {
                 required: true,
-                pattern: /^10$|^([0-9]|10),[0-9]$/,
+                pattern: /^(10|[0-9](,[0-9])?)$/,
               })} />
               {errors.movieUrl && <ErrorMessage>This field is required</ErrorMessage>}
               {errors.rating?.type === 'pattern' && (

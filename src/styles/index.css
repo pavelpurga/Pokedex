@@ -87,16 +87,12 @@ padding-top:1px;
     width: 50%;
   }
   .fixed_element {
-    width: 35%;
+    width: 45%;
   }
   .type_filters{
     display: flex;
     flex-wrap: wrap;
     font-size: 30px;
-  }
-  .checkBoxType input[type="checkbox"] {
-    transform: scale(2);
-    margin-right: 10px;
   }
 }
 
@@ -114,6 +110,7 @@ padding-top:1px;
     margin: 4px auto;
   }
   .card_list {
+    display: flex;
     flex-direction: column;
     width: 20%;
     padding: 0;
@@ -198,10 +195,4 @@ padding-top:1px;
   transition: all 1s;
   margin-top: 100px;
   margin-bottom: 50px;
-}
-
-@media screen and(max-width: 768px) {
-
-
-
 }
