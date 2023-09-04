@@ -10,12 +10,16 @@ import fillUpIcon from "../../images/FillUp.svg"
 // @ts-ignore
 import indicatorIcon from "../../images/Indicator.svg"
 
+interface SelectorInputProps {
+  isOpen: boolean;
+}
+
 const SelectorContainer = styled.div`
   position: relative;
   display: inline-block;
 `;
 
-const SelectorInput = styled.input`
+const SelectorInput = styled.input<SelectorInputProps>`
   background: #424242;
   padding-top: 16px;
   padding-left: 18px;
@@ -24,20 +28,18 @@ const SelectorInput = styled.input`
   appearance: none;
   width: 525px;
   height: 57px;
-
-  &{
-    background-image: url(${fillUpIcon});
-    background-repeat: no-repeat;
-    background-position: right 23px center;
-    background-size: 20px 12px;
-  }
+  background-image: url(${props => (props.isOpen ? fillDownIcon : fillUpIcon)});
+  background-repeat: no-repeat;
+  background-position: right 23px center;
+  background-size: 20px 12px;
   &:focus {
     outline: none;
-    background-image: url(${fillDownIcon});
   }
 `;
 
 const SelectorOptions = styled.div`
+  width: 525px;
+  height: auto;
   border-radius: 4px;
   background: rgba(35, 35, 35, 0.92);
   box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.10), 0px 10px 20px 0px rgba(0, 0, 0, 0.10), 0px 2px 10px 0px rgba(0, 0, 0, 0.10), 0px 0px 2px 0px rgba(0, 0, 0, 0.10);
@@ -113,7 +115,7 @@ const Selector = () => {
 
   return (
     <SelectorContainer>
-      <SelectorInput type="text" onClick={toggleOptions} readOnly value={'Select Genre'} />
+      <SelectorInput type="text" onClick={toggleOptions} readOnly value={'Select Genre'} isOpen={showOptions} />
       {showOptions && (
         <SelectorOptions>
           <OptionLabel>
