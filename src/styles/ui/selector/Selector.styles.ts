@@ -1,13 +1,13 @@
 import styled from "styled-components";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import fillDownIcon from "../../../images/FillUp.svg";
+import fillDownIcon from "../../../assets/icons/FillUp.svg";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import fillUpIcon from "../../../images/FillUp.svg";
+import fillUpIcon from "../../../assets/icons/FillUp.svg";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import indicatorIcon from "../../../images/Indicator.svg";
+import indicatorIcon from "../../../assets/icons/Indicator.svg";
 
 export const SelectorContainer = styled.div`
   position: relative;

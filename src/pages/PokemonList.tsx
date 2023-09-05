@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import PokemonDetail from "../pokemon/PokemonDetails";
+import PokemonDetail from "../components/pokemon/PokemonDetails";
 import {Button, Modal, Radio, Spin} from "antd";
-import '../../index.css'
-import PokemonFilters from "../filters/PokemonFilters";
-import AddPokemonForm from "../form/AddPokemonForm";
-import {useTypedDispatch} from "../../store/store";
-import {pokemonAPI} from "../../api/PokemonApi";
-import Pokemon from "../pokemon/Pokemon";
+import '../styles/index.css'
+import PokemonFilters from "../components/filters/PokemonFilters";
+import AddPokemonForm from "../components/form/AddPokemonForm";
+import {useTypedDispatch} from "../store/store";
+import {pokemonAPI} from "../api/PokemonApi";
+import Pokemon from "../components/pokemon/Pokemon";
 import { useNavigate} from "react-router-dom";
-import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
-import {addPokemon} from "../../store/PokemonSlice";
-import {ROUTES} from "../../entitysData/constants/API_ROUTS";
+import {PokemonTypes} from "../entitysData/models/Pokemon.types";
+import {addPokemon} from "../store/PokemonSlice";
+import {ROUTES} from "../entitysData/constants/API_ROUTS";
 import {withTranslation,useTranslation} from "react-i18next";
-import i18n from "../../entitysData/i18n/i18n";
+import i18n from "../entitysData/i18n/i18n";
 
 
 const PokemonList = () => {

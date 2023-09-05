@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import {ROUTES} from "../../entitysData/constants/API_ROUTS";
+import {ROUTES} from "../entitysData/constants/API_ROUTS";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useForm, SubmitHandler, FieldValues} from "react-hook-form";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Selector from "../UI/selector/Selector";
-import {Input} from "../UI/input/Input.styles";
-import {TextArea} from "../UI/textArea/TextArea.styles";
-import {DatePickerContainer} from "../UI/datePicker/DatePicker.styles";
+import Selector from "../styles/ui/selector/Selector";
+import {Input} from "../styles/ui/input/Input.styles";
+import {TextArea} from "../styles/ui/textArea/TextArea.styles";
+import {DatePickerContainer} from "../styles/ui/datePicker/DatePicker.styles";
 import {
   ModalButton, ModalButtonContainer,
   ModalContent,
@@ -17,14 +17,14 @@ import {
   ModalIcon,
   ModalOverlay,
   ModalTitle
-} from "../UI/movieModal/MovieModal.styles";
-import {Button, ButtonContainer} from "../UI/button/Button.styles";
+} from "../styles/ui/movieModal/MovieModal.styles";
+import {Button, ButtonContainer} from "../styles/ui/button/Button.styles";
 import {
   AddMovieContainer,
   FormColumnContainer,
   FormContainer
-} from "../UI/movieFormContainers/MovieFormContainers.styles";
-import {ErrorMessage, Label, Title, TitleContainer} from "../UI/movieTitle/MovieTitle.styles";
+} from "../styles/ui/movieFormContainers/MovieFormContainers.styles";
+import {ErrorMessage, Label, Title, TitleContainer} from "../styles/ui/movieTitle/MovieTitle.styles";
 
 interface FormData {
   title: string;

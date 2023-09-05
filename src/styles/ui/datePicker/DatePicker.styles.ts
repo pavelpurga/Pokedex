@@ -1,7 +1,7 @@
 import styled from "styled-components";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import calendarIcon from "../../../images/icon.svg";
+import calendarIcon from "../../../assets/icons/icon.svg";
 
 export const DatePickerContainer = styled.div`
   position: relative;

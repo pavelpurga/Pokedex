@@ -1,16 +1,16 @@
 import React, { type FC } from 'react'
-import PokemonList from './components/pages/PokemonList'
-import './index.css'
+import PokemonList from './pages/PokemonList'
+import './styles/index.css'
 import {useTypedDispatch} from "./store/store";
 import {Route, Routes} from "react-router-dom";
-import About from "./components/pages/About";
-import Posts from "./components/pages/Posts";
+import About from "./pages/About";
+import Posts from "./pages/Posts";
 import {PostsTypes} from "./entitysData/models/Posts.types";
 import {PokemonTypes} from "./entitysData/models/Pokemon.types";
 import {addPokemon} from "./store/PokemonSlice";
 import {addPost} from "./store/PostSlice";
 import {ROUTES} from "./entitysData/constants/API_ROUTS";
-import AddMovie from "./components/pages/AddMovie";
+import AddMovie from "./pages/AddMovie";
 
 const App: FC = () => {
   const dispatch = useTypedDispatch()

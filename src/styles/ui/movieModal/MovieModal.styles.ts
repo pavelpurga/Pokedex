@@ -1,7 +1,7 @@
 import styled from "styled-components";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import groupIcon from "../../../images/Group.svg";
+import groupIcon from "../../../assets/icons/Group.svg";
 
 export const ModalOverlay = styled.div`
   position: absolute;

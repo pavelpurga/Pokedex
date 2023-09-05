@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {postsAPI} from "../../api/PostsApi";
-import Post from "../post/Post";
+import {postsAPI} from "../api/PostsApi";
+import Post from "../components/post/Post";
 import {Button, Divider, Modal, Pagination, Radio, Spin} from "antd";
-import AddPostForm from "../form/AddPostForm";
-import {useTypedDispatch} from "../../store/store";
-import {PostsTypes} from "../../entitysData/models/Posts.types";
-import {fetchPostImages} from "../../api/PostImageApi";
-import {addPost} from "../../store/PostSlice";
-import {ROUTES} from "../../entitysData/constants/API_ROUTS";
-import i18n from "../../entitysData/i18n/i18n";
+import AddPostForm from "../components/form/AddPostForm";
+import {useTypedDispatch} from "../store/store";
+import {PostsTypes} from "../entitysData/models/Posts.types";
+import {fetchPostImages} from "../api/PostImageApi";
+import {addPost} from "../store/PostSlice";
+import {ROUTES} from "../entitysData/constants/API_ROUTS";
+import i18n from "../entitysData/i18n/i18n";
 import {useTranslation} from "react-i18next";
 
 
