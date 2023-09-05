@@ -1,5 +1,4 @@
 import React, { type FC } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
 import PokemonList from './components/pages/PokemonList'
 import './index.css'
 import {useTypedDispatch} from "./store/store";
@@ -14,7 +13,6 @@ import {ROUTES} from "./entitysData/constants/API_ROUTS";
 import AddMovie from "./components/pages/AddMovie";
 
 const App: FC = () => {
-  const queryClient = new QueryClient()
   const dispatch = useTypedDispatch()
   const savedPokemonList = localStorage.getItem('pokemonList');
   const savedPostList = localStorage.getItem('postList');
@@ -43,15 +41,13 @@ const App: FC = () => {
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route path={ROUTES.ABOUT} element={<About/>}/>
-          <Route path={ROUTES.POKEMON_LIST} element={<PokemonList/>}/>
-          <Route path={ROUTES.POSTS} element={<Posts/>}/>
-          <Route path={ROUTES.ADD_MOVIE} element={<AddMovie/>}/>
-          <Route path='/' element={<About/>}/>
-        </Routes>
-      </QueryClientProvider>
+      <Routes>
+        <Route path={ROUTES.ABOUT} element={<About/>}/>
+        <Route path={ROUTES.POKEMON_LIST} element={<PokemonList/>}/>
+        <Route path={ROUTES.POSTS} element={<Posts/>}/>
+        <Route path={ROUTES.ADD_MOVIE} element={<AddMovie/>}/>
+        <Route path='/' element={<About/>}/>
+      </Routes>
     </>
   )
 }
