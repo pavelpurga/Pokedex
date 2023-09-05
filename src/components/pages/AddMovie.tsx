@@ -3,7 +3,6 @@ import {ROUTES} from "../../entitysData/constants/API_ROUTS";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useForm, SubmitHandler, FieldValues} from "react-hook-form";
-import styled from "styled-components";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Selector from "../UI/selector/Selector";
@@ -25,6 +24,7 @@ import {
   FormColumnContainer,
   FormContainer
 } from "../UI/movieFormContainers/MovieFormContainers.styles";
+import {ErrorMessage, Label, Title, TitleContainer} from "../UI/movieTitle/MovieTitle.styles";
 
 interface FormData {
   title: string;
@@ -35,37 +35,6 @@ interface FormData {
   runtime: string;
   overview: string;
 }
-
-const Label = styled.label`
-  color: #F65261;
-  display: block;
-  padding-top: 30px;
-  padding-bottom: 13px;
-`;
-const ErrorMessage = styled.p`
-  color: red;
-  margin-top: 4px;
-`;
-const TitleContainer = styled.div`
-  display: flex;
-  width: 249px;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 71px;
-  padding-top: 63px;
-`;
-
-const Title = styled.div`
-  color: #FFF;
-  font-family: Montserrat;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-`;
-
 const AddMovie = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
   const navigate = useNavigate();
