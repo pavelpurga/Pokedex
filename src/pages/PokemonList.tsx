@@ -30,7 +30,6 @@ const PokemonList = () => {
     return localStoragePokemonList;
   });
   const navigate = useNavigate();
-
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
     i18n.changeLanguage(language);
@@ -43,7 +42,6 @@ const PokemonList = () => {
       setAllPokemonList((prevList) => [...prevList, ...pokemon]);
     }
   }, [pokemon]);
-
 
   const openModal = () => {
     setModalVisible(true);
@@ -99,7 +97,7 @@ const PokemonList = () => {
           onCancel={closeModal}
           footer={null}
         >
-          <AddPokemonForm onAddPokemon={handleAddPokemon}/>
+          <AddPokemonForm  closeModal={closeModal} isModalVisible={isModalVisible} onAddPokemon={handleAddPokemon}/>
         </Modal>
         <div className="card_list">
           {isLoading && <Spin/>}

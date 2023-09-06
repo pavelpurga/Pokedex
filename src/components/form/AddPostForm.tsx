@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import {useTypedDispatch, useTypedSelector} from "../../store/store";
-import {ErrorMessage, Form, Formik} from "formik";
+import {useTypedDispatch} from "../../store/store";
+import {ErrorMessage, Form, Formik, FormikHelpers} from "formik";
 import {Button, Input} from "antd";
 import {PostsTypes} from "../../entitysData/models/Posts.types";
 import {addPost} from "../../store/PostSlice";
@@ -14,10 +14,10 @@ interface FormValues {
 }
 interface Props {
     onAddPost: (post: PostsTypes) => void;
+    closeModal: () => void;
 }
-const AddPostForm: FC<Props> = ({onAddPost}) => {
+const AddPostForm: FC<Props> = ({onAddPost,closeModal}) => {
   const [createPost,{error:createError,isLoading: createIsLoading}] = postsAPI.useCreatePostMutation()
-  const allPosts: PostsTypes[] = useTypedSelector((state) => state.postReducer.posts);
   const dispatch = useTypedDispatch();
   const { t } = useTranslation();
   const initialValues: FormValues = {
@@ -25,17 +25,19 @@ const AddPostForm: FC<Props> = ({onAddPost}) => {
     body: ""
   };
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = (values: FormValues,{ resetForm }: FormikHelpers<FormValues>) => {
     const newPost: PostsTypes = {
-      id: allPosts.length,
+      id: Math.floor(Math.random() * 100) + 101,
       title: values.title,
       body: values.body,
     };
     createPost(newPost)
     dispatch(addPost(newPost));
     const postList = JSON.parse(localStorage.getItem('postList') || '[]') as PostsTypes[];
-    localStorage.setItem('postList', JSON.stringify([...postList, newPost]));
+    localStorage.setItem('postList', JSON.stringify([newPost,...postList]));
     onAddPost(newPost);
+    closeModal();
+    resetForm();
   };
 
   return (

@@ -15,7 +15,7 @@ import {
   ModalDataContainer,
   ModalDescr,
   ModalIcon,
-  ModalOverlay,
+  ModalOverlay, ModalTextArea,
   ModalTitle
 } from "../styles/ui/movieModal/MovieModal.styles";
 import {Button, ButtonContainer} from "../styles/ui/button/Button.styles";
@@ -170,7 +170,10 @@ const AddMovie = () => {
                 <p style={{marginBottom:5}}>Rating: {formData.rating}</p>
                 <p style={{marginBottom:5}}>Genre: {selectedGenre}</p>
                 <p style={{marginBottom:5}}>Runtime: {formData.runtime}</p>
-                <p style={{marginBottom:5}}>Overview: {formData.overview}</p>
+                <p style={{ marginBottom:5}}>
+                  Overview:
+                </p>
+                <ModalTextArea readOnly value={formData.overview} />
               </ModalDataContainer>
               <ModalButtonContainer>
                 <ModalButton onClick={closeModal}>Close</ModalButton>

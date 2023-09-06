@@ -18,10 +18,7 @@ const postSlice = createSlice({
   initialState,
   reducers: {
     addPost(state, action){
-      const newPost = action.payload;
-      const nextId = state.posts.length > 0 ? state.posts[state.posts.length - 1].id + 1 : 1;
-      const postWithNewId = { ...newPost, id: nextId };
-      state.posts.push(postWithNewId);
+      state.posts.push(action.payload);
     },
     updatePost(state,action){
       const { id, title } = action.payload;

@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import { PostsTypes } from '../../entitysData/models/Posts.types';
-import {Button, Card, Input, Tag} from 'antd';
+import {Button, Card, Input} from 'antd';
 import { useTypedDispatch } from '../../store/store';
 import {updatePost} from "../../store/PostSlice";
 import {removePokemon} from "../../store/PokemonSlice";
@@ -64,7 +64,6 @@ const PostDetails: FC<PostDetailsProps> = ({ post, onClose}) => {
     
   return (
     <div>
-      <Tag style={{marginBottom:5}}>{post.id}</Tag>
       <Card style={{marginBottom:5}} hoverable={true}>
           Title:{' '}
         {isEditing ? (

@@ -10,7 +10,7 @@ export const fetchPostImages = async (allPosts : PostsTypes[]) => {
         },
         params: {
           query: 'nature',
-          per_page: 100,
+          per_page: 300,
         },
       });
 

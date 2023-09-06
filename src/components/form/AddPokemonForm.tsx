@@ -1,4 +1,4 @@
-import {Formik, Form, ErrorMessage} from 'formik';
+import {Formik, Form, ErrorMessage, FormikHelpers} from 'formik';
 import {FC} from "react";
 import {Button, Col, Input, Row} from "antd";
 import {validationSchema} from "./FormValidation";
@@ -7,7 +7,7 @@ import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
 import {addPokemon} from "../../store/PokemonSlice";
 import {useTranslation} from "react-i18next";
 
-interface FormValues {
+export interface FormValues {
     name: string;
     types:string;
     image: string;
@@ -16,11 +16,12 @@ interface FormValues {
 }
 interface Props {
   onAddPokemon: (pokemon: PokemonTypes) => void;
+  isModalVisible: boolean,
+  closeModal: () => void;
 }
-const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
+const AddPokemonForm:FC<Props> = ({onAddPokemon,isModalVisible,closeModal}) => {
   const dispatch = useTypedDispatch();
   const { t } = useTranslation();
-
   const initialValues: FormValues = {
     name: "",
     types:"",
@@ -29,7 +30,7 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
     moves: ""
   };
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
     const newPokemon: PokemonTypes = {
       id: Math.floor(Math.random() * 10000) + 1,
       name: values.name,
@@ -42,19 +43,21 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
     const pokemonList = JSON.parse(localStorage.getItem('pokemonList') || '[]') as PokemonTypes[];
     localStorage.setItem('pokemonList', JSON.stringify([newPokemon,...pokemonList]));
     onAddPokemon(newPokemon);
+    resetForm();
+    closeModal();
   };
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
-      {({ values, handleChange, touched, errors }) => (
+      {formik => (
         <Form>
           <Row gutter={[16,16]}>
             <Col span={24} sm={12}>
-              <div className={`form-group ${touched.name && errors.name ? 'is-invalid' : touched.name && !errors.name ? 'is-valid' : ''}`}>
+              <div className={`form-group ${formik.touched.name && formik.errors.name ? 'is-invalid' : formik.touched.name && !formik.errors.name ? 'is-valid' : ''}`}>
 
-                <Input id="name" name="name" value={values.name}
+                <Input id="name" name="name" value={formik.values.name}
                   placeholder={t('Name')}
-                  onChange={handleChange}
+                  onChange={formik.handleChange}
                   className="form-control"
                 />
                 <ErrorMessage
@@ -62,39 +65,39 @@ const AddPokemonForm:FC<Props> = ({onAddPokemon}) => {
               </div>
             </Col>
             <Col span={24} sm={12}>
-              <div className={`form-group ${touched.types && errors.types ? 'is-invalid' : touched.types && !errors.types ? 'is-valid' : ''}`}>
-                <Input id="types" name="types" value={values.types}
+              <div className={`form-group ${formik.touched.types && formik.errors.types ? 'is-invalid' : formik.touched.types && !formik.errors.types ? 'is-valid' : ''}`}>
+                <Input id="types" name="types" value={formik.values.types}
                   placeholder={t('Type/s')}
-                  onChange={handleChange}
+                  onChange={formik.handleChange}
                 />
                 <ErrorMessage
                   name="types" component="div" className="invalid-feedback" />
               </div>
             </Col>
             <Col span={24} sm={12}>
-              <div className={`form-group ${touched.image && errors.image ? 'is-invalid' : touched.image && !errors.image ? 'is-valid' : ''}`} >
-                <Input id="image" name="image" value={values.image}
+              <div className={`form-group ${formik.touched.image && formik.errors.image ? 'is-invalid' : formik.touched.image && !formik.errors.image ? 'is-valid' : ''}`} >
+                <Input id="image" name="image" value={formik.values.image}
                   placeholder={t('Image(URL)')}
-                  onChange={handleChange}
+                  onChange={formik.handleChange}
                 />
                 <ErrorMessage
                   name="image" component="div" className="invalid-feedback" />
               </div>
             </Col>
             <Col span={24} sm={12}>
-              <div className={`form-group ${touched.stats && errors.stats ? 'is-invalid' : touched.stats && !errors.stats ? 'is-valid' : ''}`}>
-                <Input id="stats" name="stats" value={values.stats}
+              <div className={`form-group ${formik.touched.stats && formik.errors.stats ? 'is-invalid' : formik.touched.stats && !formik.errors.stats ? 'is-valid' : ''}`}>
+                <Input id="stats" name="stats" value={formik.values.stats}
                   placeholder={t("Stats(through comma)")}
-                  onChange={handleChange} />
+                  onChange={formik.handleChange} />
                 <ErrorMessage
                   name="stats" component="div" className="invalid-feedback" />
               </div>
             </Col>
             <Col span={24}>
-              <div className={`form-group ${touched.moves && errors.moves ? 'is-invalid' : touched.moves && !errors.moves ? 'is-valid' : ''}`}>
-                <Input id="moves" name="moves" value={values.moves}
+              <div className={`form-group ${formik.touched.moves && formik.errors.moves ? 'is-invalid' : formik.touched.moves && !formik.errors.moves ? 'is-valid' : ''}`}>
+                <Input id="moves" name="moves" value={formik.values.moves}
                   placeholder={t("Moves(through comma)")}
-                  onChange={handleChange} />
+                  onChange={formik.handleChange} />
                 <ErrorMessage
                   name="moves" component="div" className="invalid-feedback" />
               </div>

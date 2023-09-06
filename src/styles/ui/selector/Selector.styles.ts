@@ -1,7 +1,7 @@
 import styled from "styled-components";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import fillDownIcon from "../../../assets/icons/FillUp.svg";
+import fillDownIcon from "../../../assets/icons/FillDown.svg";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import fillUpIcon from "../../../assets/icons/FillUp.svg";

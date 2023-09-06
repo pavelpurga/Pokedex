@@ -80,3 +80,13 @@ export const ModalButton = styled.button`
   cursor: pointer;
   margin-left: 8px;
 `;
+
+export const ModalTextArea = styled.textarea`
+  background: #424242;
+  color: white;
+  white-space: pre-wrap;
+  width: 425px;
+  height: 160px;
+  resize: vertical;
+  margin-bottom: 5px;
+`;

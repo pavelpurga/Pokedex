@@ -32,7 +32,7 @@ const Posts = () => {
 
   useEffect(() => {
     if (Array.isArray(posts)) {
-      setAllPosts((prevList) => [...posts, ...prevList]);
+      setAllPosts((prevList) => [...prevList, ...posts]);
     }
   }, [posts]);
 
@@ -59,7 +59,7 @@ const Posts = () => {
 
   const handleAddPost = async (post: PostsTypes) => {
     dispatch(addPost(post));
-    setAllPosts([...allPosts, post]);
+    setAllPosts([post,...allPosts]);
   }
 
   const handleLanguageChange = (language: string) => {
@@ -96,7 +96,7 @@ const Posts = () => {
           onCancel={closeModal}
           footer={null}
         >
-          <AddPostForm onAddPost={handleAddPost}/>
+          <AddPostForm closeModal={closeModal} onAddPost={handleAddPost}/>
         </Modal>
         {isLoading && <Spin style={{display: "flex",justifyContent:"center"}}/>}
         {error && <h1>Loading Error</h1>}
