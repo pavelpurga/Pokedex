@@ -44,6 +44,12 @@ const Posts = () => {
     fetchImages();
   }, [allPosts]);
 
+  useEffect(() => {
+    const localStoragePosts = JSON.parse(localStorage.getItem('postList') || '[]') as PostsTypes[];
+    setAllPosts(localStoragePosts);
+    const localStorageImages = JSON.parse(localStorage.getItem('postImages') || '[]') as string[];
+    setPostImages(localStorageImages);
+  }, []);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -59,8 +65,13 @@ const Posts = () => {
 
   const handleAddPost = async (post: PostsTypes) => {
     dispatch(addPost(post));
-    setAllPosts([post,...allPosts]);
-  }
+    const updatedPosts = [post, ...allPosts];
+    setAllPosts(updatedPosts);
+    localStorage.setItem('postList', JSON.stringify(updatedPosts));
+    const images = await fetchPostImages(updatedPosts);
+    setPostImages(images);
+    localStorage.setItem('postImages', JSON.stringify(images));
+  };
 
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
