@@ -18,7 +18,6 @@
   max-width: 800px;
   padding-left: 70px;
 }
-
 .card {
   flex-basis: 30%;
   margin-bottom: 24px;
@@ -196,4 +195,13 @@ padding-top:1px;
   transition: all 1s;
   margin-top: 100px;
   margin-bottom: 50px;
+}
+type_button {
+  transition: background-color 0.3s; /* Добавляем плавный переход для анимации */
+  border: none; /* Удаляем границу, если не нужна */
+}
+
+.type_button:hover {
+  background-color: #000; /* Изменяем цвет фона при наведении */
+  color: #fff; /* Изменяем цвет текста при наведении */
 }
