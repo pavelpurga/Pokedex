@@ -29,9 +29,9 @@
 }
 .fixed_element{
   position: sticky;
-  top: 80px;
+  top: 50px;
   width: 30%;
-  height: calc(100vh - 135px);
+  height: 570px;
   overflow-y: auto;
   margin-left: auto;
   margin-right: 16px;

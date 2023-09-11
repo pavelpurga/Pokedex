@@ -8,6 +8,7 @@ import {
   SelectorInput,
   SelectorOptions
 } from "./Selector.styles";
+import {useTranslation} from "react-i18next";
 
 type SelectorProps = {
   onSelectGenre: (genre: string) => void;
@@ -16,7 +17,7 @@ type SelectorProps = {
 const Selector = ({ onSelectGenre }: SelectorProps) => {
   const [showOptions, setShowOptions] = useState(false);
   const selectedOptionsRef = useRef<string[]>([]);
-
+  const { t } = useTranslation();
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
@@ -36,7 +37,7 @@ const Selector = ({ onSelectGenre }: SelectorProps) => {
         type="text"
         onClick={toggleOptions}
         readOnly
-        value={'Select Genre'}
+        value={t('Select Genre')}
         isopen={showOptions ? 'true' : undefined}
       />
       {showOptions && (
@@ -44,34 +45,36 @@ const Selector = ({ onSelectGenre }: SelectorProps) => {
           <OptionLabel>
             <OptionCheckbox
               type="checkbox"
-              value="Crime"
+              value={t('Crime')}
               onChange={() => handleOptionChange('Crime')}
               checked={selectedOptionsRef.current.includes('Crime')}
             />
-                Crime
+            {t('Crime')}
           </OptionLabel>
           <OptionLabel>
             <OptionCheckbox
               type="checkbox"
-              value="Documentary"
+              value={t('Documentary')}
               onChange={() => handleOptionChange('Documentary')}
               checked={selectedOptionsRef.current.includes('Documentary')}
             />
-                Documentary
+            {t('Documentary')}
           </OptionLabel>
           <OptionLabel>
             <OptionCheckbox
               type="checkbox"
-              value="Horror"
+              value={t('Horror')}
               onChange={() => handleOptionChange('Horror')}
               checked={selectedOptionsRef.current.includes('Horror')}
             />
-                Horror
+            {t('Horror')}
           </OptionLabel>
         </SelectorOptions>
       )}
-      <Counter>{`Selected: ${selectedOptionsRef.current.length}`}</Counter>
-      {selectedOptionsRef.current.length === 0 && <Hint>Select at least one genre to proceed</Hint>}
+      {selectedOptionsRef.current.length ===0 ?
+        <Hint>{t('Select at least one genre to proceed')}</Hint> :
+        <Counter>{`${t('Selected')}: ${selectedOptionsRef.current.map(value => t(value)).join(", ")}`}</Counter>
+      }
     </SelectorContainer>
   );
 };

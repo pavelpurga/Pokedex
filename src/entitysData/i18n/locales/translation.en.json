@@ -1,5 +1,6 @@
 {
 "Pokedex": "Pokedex",
+  "Movie": "Movie",
 "Home": "Home",
 "Posts":"Posts",
 "Add Pokemon":"Add Pokemon",
@@ -33,5 +34,25 @@
 "Title":"Title",
 "Body":"Body",
 "Addingposts":"Adding posts",
-"Addpost": "Add post"
+"Addpost": "Add post",
+  "ReleaseDate": "Release Date",
+  "MovieURL": "Movie URL",
+  "Rating": "Rating",
+  "Runtime": "Runtime",
+  "Overview": "Overview",
+  "Genre": "Genre",
+  "minutes": "minutes",
+  "Select date": "Select date",
+  "Movie description": "Movie description",
+  "Select Genre": "Select Genre",
+  "Reset": "Reset",
+  "Submit": "Submit",
+  "Select at least one genre to proceed": "Select at least one genre to proceed",
+  "The movie has been added to database successfully": "The movie has been added to database successfully",
+  "Congratulation!": "Congratulation!",
+  "Crime": "Crime",
+  "Documentary": "Documentary",
+  "Horror": "Horror",
+  "Selected": "Selected",
+  "Add Movie": "Add Movie"
 }
