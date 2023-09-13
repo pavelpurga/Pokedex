@@ -3,9 +3,9 @@ import { combineReducers } from "redux";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {ThunkAction, Action, configureStore} from '@reduxjs/toolkit'
 import {pokemonAPI} from "../api/PokemonApi";
-import pokemonReducer from './PokemonSlice'
+import pokemonReducer from './Pokemon/PokemonSlice'
 import {postsAPI} from "../api/PostsApi";
-import postsReducer from './PostSlice';
+import postsReducer from './Post/PostSlice';
 
 const rootReducer = combineReducers({
   reducer: pokemonReducer,

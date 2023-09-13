@@ -3,10 +3,10 @@ import {useTypedDispatch} from "../../store/store";
 import {ErrorMessage, Form, Formik, FormikHelpers} from "formik";
 import {Button, Input} from "antd";
 import {PostsTypes} from "../../entitysData/models/Posts.types";
-import {addPost} from "../../store/PostSlice";
-import {postsAPI} from "../../api/PostsApi";
+import {addPost} from "../../store/Post/PostSlice";
 import {useTranslation} from "react-i18next";
 import TextArea from "antd/es/input/TextArea";
+import {injectApi} from "../../store/Post/Posts.api";
 
 interface FormValues {
     title: string;
@@ -17,7 +17,7 @@ interface Props {
     closeModal: () => void;
 }
 const AddPostForm: FC<Props> = ({onAddPost,closeModal}) => {
-  const [createPost,{error:createError,isLoading: createIsLoading}] = postsAPI.useCreatePostMutation()
+  const [createPost,{error:createError,isLoading: createIsLoading}] = injectApi.useCreatePostMutation()
   const dispatch = useTypedDispatch();
   const { t } = useTranslation();
   const initialValues: FormValues = {

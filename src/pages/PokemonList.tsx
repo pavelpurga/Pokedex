@@ -9,7 +9,7 @@ import {pokemonAPI} from "../api/PokemonApi";
 import Pokemon from "../components/pokemon/Pokemon";
 import { useNavigate} from "react-router-dom";
 import {PokemonTypes} from "../entitysData/models/Pokemon.types";
-import {addPokemon} from "../store/PokemonSlice";
+import {addPokemon} from "../store/Pokemon/PokemonSlice";
 import {ROUTES} from "../entitysData/constants/API_ROUTS";
 import {withTranslation,useTranslation} from "react-i18next";
 import i18n from "../entitysData/i18n/i18n";

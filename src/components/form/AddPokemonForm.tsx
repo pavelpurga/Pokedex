@@ -4,7 +4,7 @@ import {Button, Col, Input, Row} from "antd";
 import {validationSchema} from "./FormValidation";
 import {useTypedDispatch} from "../../store/store";
 import {PokemonTypes} from "../../entitysData/models/Pokemon.types";
-import {addPokemon} from "../../store/PokemonSlice";
+import {addPokemon} from "../../store/Pokemon/PokemonSlice";
 import {useTranslation} from "react-i18next";
 
 export interface FormValues {

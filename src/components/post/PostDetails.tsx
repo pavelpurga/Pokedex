@@ -2,9 +2,9 @@ import React, {FC, useEffect, useState} from 'react';
 import { PostsTypes } from '../../entitysData/models/Posts.types';
 import {Button, Card, Input} from 'antd';
 import { useTypedDispatch } from '../../store/store';
-import {updatePost} from "../../store/PostSlice";
-import {removePokemon} from "../../store/PokemonSlice";
-import {postsAPI} from "../../api/PostsApi";
+import {updatePost} from "../../store/Post/PostSlice";
+import {removePokemon} from "../../store/Pokemon/PokemonSlice";
+import {injectApi} from "../../store/Post/Posts.api";
 
 interface PostDetailsProps {
   post: PostsTypes;
@@ -16,8 +16,8 @@ const PostDetails: FC<PostDetailsProps> = ({ post, onClose}) => {
   const [title, setTitle] = useState(post.title);
   const [body, setBody] = useState(post.body);
   const [isEditing, setEditing] = useState(false);
-  const [updatePosts,{error:updateError,isLoading: updateIsLoading}] = postsAPI.useUpdatePostMutation()
-  const [deletePosts,{error:deleteError,isLoading: deleteIsLoading}] = postsAPI.useDeletePostMutation()
+  const [updatePosts,{error:updateError,isLoading: updateIsLoading}] = injectApi.useUpdatePostMutation()
+  const [deletePosts,{error:deleteError,isLoading: deleteIsLoading}] = injectApi.useDeletePostMutation()
 
   useEffect(() => {
     setTitle(post.title);

@@ -7,8 +7,8 @@ import About from "./pages/About";
 import Posts from "./pages/Posts";
 import {PostsTypes} from "./entitysData/models/Posts.types";
 import {PokemonTypes} from "./entitysData/models/Pokemon.types";
-import {addPokemon} from "./store/PokemonSlice";
-import {addPost} from "./store/PostSlice";
+import {addPokemon} from "./store/Pokemon/PokemonSlice";
+import {addPost} from "./store/Post/PostSlice";
 import {ROUTES} from "./entitysData/constants/API_ROUTS";
 import AddMovie from "./pages/AddMovie";
 

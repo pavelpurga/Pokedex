@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {PostsTypes} from "../entitysData/models/Posts.types";
+import {PostsTypes} from "../../entitysData/models/Posts.types";
 
 interface PostState{
   posts: PostsTypes[],
