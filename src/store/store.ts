@@ -6,10 +6,12 @@ import {pokemonAPI} from "../api/PokemonApi";
 import pokemonReducer from './Pokemon/PokemonSlice'
 import {postsAPI} from "../api/PostsApi";
 import postsReducer from './Post/PostSlice';
+import themeReducer from './theme/ThemeSlice'
 
 const rootReducer = combineReducers({
   reducer: pokemonReducer,
   postReducer : postsReducer,
+  theme: themeReducer,
   [pokemonAPI.reducerPath]: pokemonAPI.reducer,
   [postsAPI.reducerPath]: postsAPI.reducer
 });

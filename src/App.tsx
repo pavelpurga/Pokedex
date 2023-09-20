@@ -11,6 +11,7 @@ import {addPokemon} from "./store/Pokemon/PokemonSlice";
 import {addPost} from "./store/Post/PostSlice";
 import {ROUTES} from "./entitysData/constants/API_ROUTS";
 import AddMovie from "./pages/AddMovie";
+import Theme from "./components/theme/Theme";
 
 const App: FC = () => {
   const dispatch = useTypedDispatch()
@@ -41,6 +42,7 @@ const App: FC = () => {
 
   return (
     <>
+      <Theme/>
       <Routes>
         <Route path={ROUTES.ABOUT} element={<About/>}/>
         <Route path={ROUTES.POKEMON_LIST} element={<PokemonList/>}/>
