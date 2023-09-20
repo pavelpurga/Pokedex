@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useDispatch } from 'react-redux'
 import cn from 'classnames'
 
@@ -12,11 +12,10 @@ const Theme = ({ className }:any) => {
   const theme = useTypedSelector((state) => state.theme)
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.documentElement.dataset.theme = theme
     localStorage.setItem('theme', theme)
   }, [ theme ])
-
   const handleChange = () => dispatch(set(theme === 'dark' ? 'light' : 'dark'))
 
   return (
