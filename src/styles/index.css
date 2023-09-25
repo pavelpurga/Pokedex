@@ -205,3 +205,14 @@ type_button {
   background-color: #000; /* Изменяем цвет фона при наведении */
   color: #fff; /* Изменяем цвет текста при наведении */
 }
+.stat{
+  display: flex;
+  justify-content: center;
+  margin-top: 13px;
+  font-size: 16px;
+}
+.pokeName{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+}

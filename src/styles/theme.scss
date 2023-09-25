@@ -29,6 +29,10 @@ body {
   background: var(--background-color);
   color: var(--text-color);
 }
+.stat{
+  color: var(--text-color);
+}
+
 .language_Button{
   background: var(--background-color);
   color: var(--text-color);
@@ -47,5 +51,8 @@ body {
   filter: invert(1);
 }
 .about_text{
+  color: var(--text-color);
+}
+.postTitle{
   color: var(--text-color);
 }

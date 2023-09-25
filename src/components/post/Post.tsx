@@ -21,7 +21,7 @@ const Post : FC<PostProps> = ({post,image}) => {
   return (
     <div style={{marginTop:15 ,display:"flex", justifyContent:"center"}}>
       <Card
-        title={post.title}
+        title={<p className="postTitle">{post.title}</p>}
         style={{ width: 650 }}
         className="post"
         hoverable={true}
