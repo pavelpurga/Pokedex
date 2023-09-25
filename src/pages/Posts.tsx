@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Post from "../components/post/Post";
-import {Button, Divider, Modal, Pagination, Radio, Spin} from "antd";
+import {Button, Divider, Modal, Pagination, Spin} from "antd";
 import AddPostForm from "../components/form/AddPostForm";
 import {useTypedDispatch} from "../store/store";
 import {PostsTypes} from "../entitysData/models/Posts.types";
 import {fetchPostImages} from "../api/PostImageApi";
 import {addPost} from "../store/Post/PostSlice";
 import {ROUTES} from "../entitysData/constants/API_ROUTS";
-import i18n from "../entitysData/i18n/i18n";
 import {useTranslation} from "react-i18next";
 import {injectApi} from "../store/Post/Posts.api";
 
@@ -28,8 +27,6 @@ const Posts = () => {
     return localStoragePosts;
   });
   const { t } = useTranslation();
-  const [selectedLanguage,setSelectedLanguage] = useState("en");
-
   useEffect(() => {
     if (Array.isArray(posts)) {
       setAllPosts((prevList) => [...prevList, ...posts]);
@@ -73,21 +70,12 @@ const Posts = () => {
     localStorage.setItem('postImages', JSON.stringify(images));
   };
 
-  const handleLanguageChange = (language: string) => {
-    setSelectedLanguage(language);
-    i18n.changeLanguage(language);
-  };
   return (
     <div>
       <div>
         <div className="header">
           <h1 className="text">Pokemon's posts</h1>
         </div>
-        <Radio.Group value={selectedLanguage}>
-          <Radio.Button value="ru" onChange={(e)=>handleLanguageChange(e.target.value)} >{t('RU')}</Radio.Button>
-          <Radio.Button value="en" onChange={(e)=>handleLanguageChange(e.target.value)}>{t('EN')}</Radio.Button>
-          <Radio.Button value="ua" onChange={(e)=>handleLanguageChange(e.target.value)}>{t('UA')}</Radio.Button>
-        </Radio.Group>
         <div style={{display: "flex", justifyContent: "center", marginBottom:20}}>
           <button className="btn"
             onClick={() => handleButtonClick(ROUTES.ABOUT)}>

@@ -25,7 +25,7 @@ const Post : FC<PostProps> = ({post,image}) => {
         style={{ width: 650 }}
         className="post"
         hoverable={true}
-        extra={<Button onClick={openModal}>More</Button>}
+        extra={<Button className="button_more_post" onClick={openModal}>More</Button>}
       >
         <div style={{display:"flex"}}>
           {image && <img src={image}  style={{width:80,height:130}} />}

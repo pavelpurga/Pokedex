@@ -25,8 +25,6 @@ import {
   FormContainer
 } from "../styles/ui/movieFormContainers/MovieFormContainers.styles";
 import {ErrorMessage, Label, Title, TitleContainer} from "../styles/ui/movieTitle/MovieTitle.styles";
-import {Radio} from "antd";
-import i18n from "../entitysData/i18n/i18n";
 
 interface FormData {
   title: string;
@@ -45,12 +43,6 @@ const AddMovie = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [isModalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState<FormData | null>(null);
-  const [selectedLanguage,setSelectedLanguage] = useState("en");
-
-  const handleLanguageChange = (language: string) => {
-    setSelectedLanguage(language);
-    i18n.changeLanguage(language);
-  };
 
   const handleButtonClick = (route:any) => {
     navigate(route);
@@ -76,11 +68,6 @@ const AddMovie = () => {
   return (
     <div>
       <div>
-        <Radio.Group value={selectedLanguage}>
-          <Radio.Button value="ru" onChange={(e)=>handleLanguageChange(e.target.value)} >{t('RU')}</Radio.Button>
-          <Radio.Button value="en" onChange={(e)=>handleLanguageChange(e.target.value)}>{t('EN')}</Radio.Button>
-          <Radio.Button value="ua" onChange={(e)=>handleLanguageChange(e.target.value)}>{t('UA')}</Radio.Button>
-        </Radio.Group>
         <button className="btn"
           onClick={() => handleButtonClick(ROUTES.ABOUT)}>
           {t('Home')}

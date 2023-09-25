@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PokemonDetail from "../components/pokemon/PokemonDetails";
-import {Button, Modal, Radio, Spin} from "antd";
+import {Button, Modal,  Spin} from "antd";
 import '../styles/index.css'
 import PokemonFilters from "../components/filters/PokemonFilters";
 import AddPokemonForm from "../components/form/AddPokemonForm";
@@ -12,15 +12,13 @@ import {PokemonTypes} from "../entitysData/models/Pokemon.types";
 import {addPokemon} from "../store/Pokemon/PokemonSlice";
 import {ROUTES} from "../entitysData/constants/API_ROUTS";
 import {withTranslation,useTranslation} from "react-i18next";
-import i18n from "../entitysData/i18n/i18n";
-
+import '../styles/theme.scss'
 
 const PokemonList = () => {
   const [offset, setOffset] = useState(0);
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const dispatch = useTypedDispatch();
-  const [selectedLanguage,setSelectedLanguage] = useState("en");
   const { data: pokemon, error, isLoading } =
       pokemonAPI.useFetchAllPokemonQuery({limit:12,offset: offset})
   const[selectedPokemon, setSelectedPokemon] = useState<PokemonTypes | null>(null)
@@ -30,10 +28,6 @@ const PokemonList = () => {
     return localStoragePokemonList;
   });
   const navigate = useNavigate();
-  const handleLanguageChange = (language: string) => {
-    setSelectedLanguage(language);
-    i18n.changeLanguage(language);
-  };
   const handleButtonClick = (route:any) => {
     navigate(route);
   };
@@ -70,11 +64,6 @@ const PokemonList = () => {
         <div className="header">
           <h1 className="text">{t('Pokedex')}</h1>
         </div>
-        <Radio.Group value={selectedLanguage}>
-          <Radio.Button value="ru" onChange={(e)=>handleLanguageChange(e.target.value)} >{t('RU')}</Radio.Button>
-          <Radio.Button value="en" onChange={(e)=>handleLanguageChange(e.target.value)}>{t('EN')}</Radio.Button>
-          <Radio.Button value="ua" onChange={(e)=>handleLanguageChange(e.target.value)}>{t('UA')}</Radio.Button>
-        </Radio.Group>
         <button className="btn"
           onClick={() => handleButtonClick(ROUTES.ABOUT)}>
           {t('Home')}

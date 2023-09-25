@@ -10,5 +10,42 @@
 
 body {
   background: var(--background-color);
+  color: var(--text-color); 
+}
+
+.button_add{
+  background: var(--background-color);
+  color: var(--text-color);
+}
+.delete_button{
+  background: var(--background-color);
+  color: var(--text-color);
+}
+.card{
+  background: var(--background-color);
+  color: var(--text-color);
+}
+.cardDetail{
+  background: var(--background-color);
+  color: var(--text-color);
+}
+.language_Button{
+  background: var(--background-color);
+  color: var(--text-color);
+}
+.post{
+  background: var(--background-color);
+  color: var(--text-color);
+}
+.button_more_post{
+  background: var(--background-color);
+  color: var(--text-color);
+}
+.btn{
+  background: var(--background-color);
+  color: var(--text-color);
+  filter: invert(1);
+}
+.about_text{
   color: var(--text-color);
 }
